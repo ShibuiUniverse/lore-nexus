@@ -1,3 +1,6 @@
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { cn } from "@/lib/utils";
+
 interface Era {
   id: string;
   name: string;
@@ -12,9 +15,11 @@ interface TimelineEraMarkerProps {
 }
 
 export function TimelineEraMarker({ era }: TimelineEraMarkerProps) {
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
+
   const yearRange =
     era.start_year && era.end_year
-      ? `${era.start_year} - ${era.end_year}`
+      ? `${era.start_year} — ${era.end_year}`
       : era.start_year
       ? `From ${era.start_year}`
       : era.end_year
@@ -22,36 +27,57 @@ export function TimelineEraMarker({ era }: TimelineEraMarkerProps) {
       : null;
 
   return (
-    <div className="relative flex items-center justify-center py-8">
+    <div 
+      ref={ref}
+      className={cn(
+        "relative flex items-center justify-center py-12 md:py-16 z-10",
+        "transition-all duration-700 ease-out",
+        isVisible 
+          ? "opacity-100 translate-y-0" 
+          : "opacity-0 translate-y-8"
+      )}
+    >
+      {/* Background glow */}
+      <div 
+        className="absolute inset-0 opacity-20 blur-3xl pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at center, ${era.color || "hsl(0, 72%, 50%)"} 0%, transparent 70%)`
+        }}
+      />
+
       {/* Era marker diamond */}
       <div
-        className="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 border-2"
+        className="absolute left-6 md:left-1/2 -translate-x-1/2 w-5 h-5 rotate-45 border-2 z-20 shadow-lg"
         style={{
           borderColor: era.color || "hsl(0, 72%, 50%)",
           backgroundColor: "hsl(var(--background))",
+          boxShadow: `0 0 20px ${era.color || "hsl(0, 72%, 50%)"}40`
         }}
       />
 
       {/* Era label */}
-      <div className="ml-12 md:ml-0 flex flex-col items-start md:items-center">
+      <div className="ml-16 md:ml-0 flex flex-col items-start md:items-center relative z-10">
         <div
-          className="px-6 py-2 border"
+          className="px-8 py-3 border-2 bg-background/80 backdrop-blur-sm"
           style={{ borderColor: era.color || "hsl(0, 72%, 50%)" }}
         >
           <h2
-            className="font-display text-lg md:text-xl tracking-widest uppercase"
+            className="font-display text-xl md:text-2xl tracking-[0.2em] uppercase"
             style={{ color: era.color || "hsl(0, 72%, 50%)" }}
           >
             {era.name}
           </h2>
         </div>
         {yearRange && (
-          <p className="text-xs text-muted-foreground mt-2 tracking-wider">
+          <p 
+            className="text-sm font-display tracking-[0.15em] mt-3"
+            style={{ color: era.color || "hsl(0, 72%, 50%)", opacity: 0.8 }}
+          >
             {yearRange}
           </p>
         )}
         {era.description && (
-          <p className="text-sm text-muted-foreground mt-2 max-w-md text-center hidden md:block">
+          <p className="text-sm text-muted-foreground mt-3 max-w-lg text-center hidden md:block leading-relaxed">
             {era.description}
           </p>
         )}

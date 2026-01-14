@@ -148,7 +148,7 @@ const Timeline = () => {
               <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
 
               {/* Events grouped by era */}
-              <div className="space-y-4">
+              <div className="space-y-8">
                 {eras?.map((era) => {
                   const eraEvents = eventsByEra?.[era.id];
                   if (!eraEvents || eraEvents.length === 0) return null;
@@ -159,7 +159,7 @@ const Timeline = () => {
                       <TimelineEraMarker era={era} />
 
                       {/* Era events */}
-                      <div className="space-y-6 mt-6">
+                      <div className="space-y-8 mt-8">
                         {eraEvents.map((event, index) => (
                           <TimelineEvent
                             key={event.id}
@@ -172,6 +172,7 @@ const Timeline = () => {
                             }
                             onOpenModal={() => handleOpenModal(event)}
                             position={index % 2 === 0 ? "left" : "right"}
+                            index={index}
                           />
                         ))}
                       </div>
@@ -185,7 +186,7 @@ const Timeline = () => {
                     <TimelineEraMarker
                       era={{ id: "unknown", name: "Unknown Era", color: "#666666" }}
                     />
-                    <div className="space-y-6 mt-6">
+                    <div className="space-y-8 mt-8">
                       {eventsByEra["unknown"].map((event, index) => (
                         <TimelineEvent
                           key={event.id}
@@ -198,6 +199,7 @@ const Timeline = () => {
                           }
                           onOpenModal={() => handleOpenModal(event)}
                           position={index % 2 === 0 ? "left" : "right"}
+                          index={index}
                         />
                       ))}
                     </div>

@@ -1,5 +1,6 @@
 import { ChevronDown, BookOpen, Play, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Era {
   id: string;
@@ -27,6 +28,7 @@ interface TimelineEventProps {
   onToggle: () => void;
   onOpenModal: () => void;
   position: "left" | "right";
+  index?: number;
 }
 
 export function TimelineEvent({
@@ -35,7 +37,12 @@ export function TimelineEvent({
   onToggle,
   onOpenModal,
   position,
+  index = 0,
 }: TimelineEventProps) {
+  const { ref, isVisible } = useScrollReveal<HTMLDivElement>({
+    threshold: 0.15,
+    rootMargin: "0px 0px -100px 0px"
+  });
   const categoryColors: Record<string, string> = {
     event: "hsl(0, 72%, 50%)",
     battle: "hsl(0, 60%, 45%)",
@@ -83,12 +90,20 @@ export function TimelineEvent({
 
   return (
     <div
+      ref={ref}
       id={event.id}
       className={cn(
         "relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 group",
-        position === "right" && "md:direction-rtl"
+        position === "right" && "md:direction-rtl",
+        "transition-all duration-700 ease-out",
+        isVisible 
+          ? "opacity-100 translate-y-0" 
+          : "opacity-0 translate-y-12"
       )}
-      style={{ direction: "ltr" }}
+      style={{ 
+        direction: "ltr",
+        transitionDelay: `${(index % 3) * 100}ms`
+      }}
     >
       {/* Timeline node */}
       <div
