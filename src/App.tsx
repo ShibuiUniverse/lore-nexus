@@ -10,6 +10,9 @@ import CharacterDetail from "./pages/CharacterDetail";
 import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
 import PeopleDetail from "./pages/PeopleDetail";
+import Codex from "./pages/Codex";
+import ArtifactDetail from "./pages/ArtifactDetail";
+import ProphecyDetail from "./pages/ProphecyDetail";
 import Stories from "./pages/Stories";
 import NotFound from "./pages/NotFound";
 
@@ -30,6 +33,9 @@ const App = () => (
           <Route path="/locations/:id" element={<LocationDetail />} />
           <Route path="/peoples/:id" element={<PeopleDetail />} />
           <Route path="/realms" element={<Locations />} />
+          <Route path="/codex" element={<Codex />} />
+          <Route path="/codex/artifacts/:id" element={<ArtifactDetail />} />
+          <Route path="/codex/prophecies/:id" element={<ProphecyDetail />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

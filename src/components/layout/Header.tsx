@@ -7,7 +7,8 @@ const navLinks = [
   { href: "/timeline", label: "Timeline" },
   { href: "/characters", label: "Characters" },
   { href: "/realms", label: "Realms & Peoples" },
-  { href: "/stories", label: "Stories" },
+  { href: "/codex", label: "Codex" },
+  { href: "/stories", label: "Chronicles" },
 ];
 
 export function Header() {
