@@ -273,13 +273,16 @@ export type Database = {
           created_at: string
           description: string | null
           era_id: string | null
+          event_type: string
           full_content: string | null
           id: string
           image_url: string | null
           is_featured: boolean | null
+          reading_time: number | null
           sort_order: number | null
           title: string
           updated_at: string
+          video_url: string | null
           year: number | null
         }
         Insert: {
@@ -287,13 +290,16 @@ export type Database = {
           created_at?: string
           description?: string | null
           era_id?: string | null
+          event_type?: string
           full_content?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          reading_time?: number | null
           sort_order?: number | null
           title: string
           updated_at?: string
+          video_url?: string | null
           year?: number | null
         }
         Update: {
@@ -301,13 +307,16 @@ export type Database = {
           created_at?: string
           description?: string | null
           era_id?: string | null
+          event_type?: string
           full_content?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean | null
+          reading_time?: number | null
           sort_order?: number | null
           title?: string
           updated_at?: string
+          video_url?: string | null
           year?: number | null
         }
         Relationships: [
