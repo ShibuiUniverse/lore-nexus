@@ -60,9 +60,14 @@ export function TimelineEvent({
   const isLoreStory = eventType === "lore_story";
   const isTrailer = eventType === "trailer";
   const isRegularEvent = eventType === "event";
+  
+  // Check if this event has substantial content that should open in a modal
+  const hasLongContent = event.full_content && event.full_content.length > 500;
+  const hasVideo = !!event.video_url;
+  const shouldOpenModal = isLoreStory || isTrailer || hasLongContent || hasVideo;
 
   const handleClick = () => {
-    if (isLoreStory || isTrailer) {
+    if (shouldOpenModal) {
       onOpenModal();
     } else {
       onToggle();
@@ -272,7 +277,7 @@ export function TimelineEvent({
                     Watch Trailer
                   </span>
                 )}
-                {isRegularEvent && event.full_content && (
+                {isRegularEvent && event.full_content && !shouldOpenModal && (
                   <span className="text-muted-foreground flex items-center gap-1">
                     {isExpanded ? "Show less" : "Read more"}
                     <ChevronDown
@@ -284,11 +289,17 @@ export function TimelineEvent({
                     />
                   </span>
                 )}
+                {isRegularEvent && shouldOpenModal && (
+                  <span className="text-primary flex items-center gap-1">
+                    <BookOpen size={12} />
+                    Read Full Story
+                  </span>
+                )}
               </div>
             </div>
 
-            {/* Expanded content (only for regular events) */}
-            {isRegularEvent && (
+            {/* Expanded content (only for regular events without long content) */}
+            {isRegularEvent && !shouldOpenModal && (
               <div
                 className={cn(
                   "overflow-hidden transition-all duration-500",

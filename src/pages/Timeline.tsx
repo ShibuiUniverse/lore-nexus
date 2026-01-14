@@ -226,16 +226,16 @@ const Timeline = () => {
       </div>
 
       {/* Modals */}
-      {modalEvent && modalEvent.event_type === "lore_story" && (
-        <LoreStoryModal
-          story={modalEvent}
+      {modalEvent && modalEvent.event_type === "trailer" && (
+        <TrailerModal
+          trailer={modalEvent}
           open={true}
           onClose={handleCloseModal}
         />
       )}
-      {modalEvent && modalEvent.event_type === "trailer" && (
-        <TrailerModal
-          trailer={modalEvent}
+      {modalEvent && modalEvent.event_type !== "trailer" && (
+        <LoreStoryModal
+          story={modalEvent}
           open={true}
           onClose={handleCloseModal}
         />
