@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/timeline", label: "Timeline" },
   { href: "/characters", label: "Characters" },
-  { href: "/locations", label: "Realms" },
+  { href: "/realms", label: "Realms & Peoples" },
   { href: "/stories", label: "Stories" },
 ];
 

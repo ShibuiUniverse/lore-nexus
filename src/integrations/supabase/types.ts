@@ -65,6 +65,7 @@ export type Database = {
           image_url: string | null
           is_featured: boolean | null
           name: string
+          people_group_id: string | null
           sort_order: number | null
           title: string | null
           updated_at: string
@@ -80,6 +81,7 @@ export type Database = {
           image_url?: string | null
           is_featured?: boolean | null
           name: string
+          people_group_id?: string | null
           sort_order?: number | null
           title?: string | null
           updated_at?: string
@@ -95,6 +97,7 @@ export type Database = {
           image_url?: string | null
           is_featured?: boolean | null
           name?: string
+          people_group_id?: string | null
           sort_order?: number | null
           title?: string | null
           updated_at?: string
@@ -105,6 +108,13 @@ export type Database = {
             columns: ["era_id"]
             isOneToOne: false
             referencedRelation: "eras"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "characters_people_group_id_fkey"
+            columns: ["people_group_id"]
+            isOneToOne: false
+            referencedRelation: "people_groups"
             referencedColumns: ["id"]
           },
         ]
@@ -186,6 +196,56 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      people_groups: {
+        Row: {
+          created_at: string
+          culture_text: string | null
+          description: string | null
+          homeland_id: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean | null
+          name: string
+          sort_order: number | null
+          traditions: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          culture_text?: string | null
+          description?: string | null
+          homeland_id?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          name: string
+          sort_order?: number | null
+          traditions?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          culture_text?: string | null
+          description?: string | null
+          homeland_id?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          name?: string
+          sort_order?: number | null
+          traditions?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "people_groups_homeland_id_fkey"
+            columns: ["homeland_id"]
+            isOneToOne: false
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
