@@ -8,6 +8,7 @@ import Timeline from "./pages/Timeline";
 import Characters from "./pages/Characters";
 import CharacterDetail from "./pages/CharacterDetail";
 import Locations from "./pages/Locations";
+import LocationDetail from "./pages/LocationDetail";
 import Stories from "./pages/Stories";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/characters" element={<Characters />} />
           <Route path="/characters/:id" element={<CharacterDetail />} />
           <Route path="/locations" element={<Locations />} />
+          <Route path="/locations/:id" element={<LocationDetail />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
