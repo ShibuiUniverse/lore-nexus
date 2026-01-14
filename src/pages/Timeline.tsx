@@ -34,6 +34,7 @@ const Timeline = () => {
   const [selectedEventType, setSelectedEventType] = useState<string | null>(null);
   const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
   const [modalEvent, setModalEvent] = useState<TimelineEventData | null>(null);
+  const [modalType, setModalType] = useState<"lore" | "trailer">("lore");
 
   const { data: eras } = useQuery({
     queryKey: ["eras"],
@@ -91,8 +92,19 @@ const Timeline = () => {
     return acc;
   }, {} as Record<string, typeof events>);
 
-  const handleOpenModal = (event: TimelineEventData) => {
+  const handleOpenModal = (event: TimelineEventData, type?: "lore" | "trailer") => {
     setModalEvent(event);
+    // Determine modal type based on content availability and user selection
+    if (type) {
+      setModalType(type);
+    } else if (event.event_type === "trailer") {
+      setModalType("trailer");
+    } else if (event.event_type === "lore_story") {
+      setModalType("lore");
+    } else {
+      // For regular events, default to lore if has content, otherwise trailer
+      setModalType(event.full_content && event.full_content.length > 100 ? "lore" : "trailer");
+    }
   };
 
   const handleCloseModal = () => {
@@ -170,7 +182,7 @@ const Timeline = () => {
                                 expandedEventId === event.id ? null : event.id
                               )
                             }
-                            onOpenModal={() => handleOpenModal(event)}
+                            onOpenModal={(type) => handleOpenModal(event, type)}
                             position={index % 2 === 0 ? "left" : "right"}
                             index={index}
                           />
@@ -197,7 +209,7 @@ const Timeline = () => {
                               expandedEventId === event.id ? null : event.id
                             )
                           }
-                          onOpenModal={() => handleOpenModal(event)}
+                          onOpenModal={(type) => handleOpenModal(event, type)}
                           position={index % 2 === 0 ? "left" : "right"}
                           index={index}
                         />
@@ -226,14 +238,14 @@ const Timeline = () => {
       </div>
 
       {/* Modals */}
-      {modalEvent && modalEvent.event_type === "trailer" && (
+      {modalEvent && modalType === "trailer" && (
         <TrailerModal
           trailer={modalEvent}
           open={true}
           onClose={handleCloseModal}
         />
       )}
-      {modalEvent && modalEvent.event_type !== "trailer" && (
+      {modalEvent && modalType === "lore" && (
         <LoreStoryModal
           story={modalEvent}
           open={true}
