@@ -1,0 +1,186 @@
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface Era {
+  id: string;
+  name: string;
+  color?: string | null;
+}
+
+interface Event {
+  id: string;
+  title: string;
+  description?: string | null;
+  full_content?: string | null;
+  year?: number | null;
+  category?: string | null;
+  image_url?: string | null;
+  eras?: Era | null;
+}
+
+interface TimelineEventProps {
+  event: Event;
+  isExpanded: boolean;
+  onToggle: () => void;
+  position: "left" | "right";
+}
+
+export function TimelineEvent({
+  event,
+  isExpanded,
+  onToggle,
+  position,
+}: TimelineEventProps) {
+  const categoryColors: Record<string, string> = {
+    event: "hsl(0, 72%, 50%)",
+    battle: "hsl(0, 60%, 45%)",
+    birth: "hsl(38, 60%, 45%)",
+    death: "hsl(0, 0%, 40%)",
+    alliance: "hsl(200, 60%, 45%)",
+    discovery: "hsl(280, 50%, 50%)",
+  };
+
+  const accentColor = event.category
+    ? categoryColors[event.category] || "hsl(0, 72%, 50%)"
+    : "hsl(0, 72%, 50%)";
+
+  return (
+    <div
+      id={event.id}
+      className={cn(
+        "relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 group",
+        position === "right" && "md:direction-rtl"
+      )}
+      style={{ direction: "ltr" }}
+    >
+      {/* Timeline node */}
+      <div
+        className="absolute left-6 md:left-1/2 top-6 w-3 h-3 rounded-full -translate-x-1/2 border-2 bg-background transition-all duration-300 group-hover:scale-125"
+        style={{ borderColor: accentColor }}
+      />
+
+      {/* Connecting line to node */}
+      <div
+        className={cn(
+          "hidden md:block absolute top-7 h-px w-8",
+          position === "left" ? "right-1/2 mr-1.5" : "left-1/2 ml-1.5"
+        )}
+        style={{ backgroundColor: accentColor, opacity: 0.3 }}
+      />
+
+      {/* Event card */}
+      <div
+        className={cn(
+          "ml-12 md:ml-0",
+          position === "left" ? "md:pr-12 md:text-right" : "md:pl-12 md:col-start-2"
+        )}
+      >
+        <button
+          onClick={onToggle}
+          className="w-full text-left group/card"
+        >
+          <div
+            className={cn(
+              "relative overflow-hidden border border-border bg-card/50 backdrop-blur-sm transition-all duration-300",
+              "hover:border-primary/50 hover:bg-card/80",
+              isExpanded && "border-primary/50"
+            )}
+          >
+            {/* Image */}
+            {event.image_url && (
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={event.image_url}
+                  alt={event.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+              </div>
+            )}
+
+            {/* Content */}
+            <div className="p-6">
+              {/* Year and category */}
+              <div
+                className={cn(
+                  "flex items-center gap-3 mb-3",
+                  position === "left" && "md:justify-end"
+                )}
+              >
+                {event.year && (
+                  <span
+                    className="font-display text-2xl"
+                    style={{ color: accentColor }}
+                  >
+                    {event.year}
+                  </span>
+                )}
+                {event.category && (
+                  <span
+                    className="px-2 py-0.5 text-xs uppercase tracking-wider border"
+                    style={{
+                      borderColor: accentColor,
+                      color: accentColor,
+                    }}
+                  >
+                    {event.category}
+                  </span>
+                )}
+              </div>
+
+              {/* Title */}
+              <h3 className="font-display text-lg tracking-wide text-foreground mb-2 group-hover/card:text-primary transition-colors">
+                {event.title}
+              </h3>
+
+              {/* Description */}
+              {event.description && (
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {event.description}
+                </p>
+              )}
+
+              {/* Expand indicator */}
+              {event.full_content && (
+                <div
+                  className={cn(
+                    "flex items-center gap-2 mt-4 text-xs text-muted-foreground",
+                    position === "left" && "md:justify-end"
+                  )}
+                >
+                  <span>{isExpanded ? "Show less" : "Read more"}</span>
+                  <ChevronDown
+                    size={14}
+                    className={cn(
+                      "transition-transform duration-300",
+                      isExpanded && "rotate-180"
+                    )}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Expanded content */}
+            <div
+              className={cn(
+                "overflow-hidden transition-all duration-500",
+                isExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+              )}
+            >
+              <div className="px-6 pb-6 border-t border-border pt-4">
+                <div className="prose prose-sm prose-invert max-w-none">
+                  <p className="text-sm text-foreground/90 whitespace-pre-wrap">
+                    {event.full_content}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      {/* Spacer for alternating layout */}
+      <div className="hidden md:block" />
+    </div>
+  );
+}
