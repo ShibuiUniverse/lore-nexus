@@ -14,6 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
+      artifacts: {
+        Row: {
+          artifact_type: string | null
+          created_at: string
+          current_holder_id: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          is_featured: boolean | null
+          lore_content: string | null
+          name: string
+          origin_story: string | null
+          power_description: string | null
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          artifact_type?: string | null
+          created_at?: string
+          current_holder_id?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          lore_content?: string | null
+          name: string
+          origin_story?: string | null
+          power_description?: string | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          artifact_type?: string | null
+          created_at?: string
+          current_holder_id?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_featured?: boolean | null
+          lore_content?: string | null
+          name?: string
+          origin_story?: string | null
+          power_description?: string | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "artifacts_current_holder_id_fkey"
+            columns: ["current_holder_id"]
+            isOneToOne: false
+            referencedRelation: "characters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       character_events: {
         Row: {
           character_id: string
@@ -273,6 +329,59 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      prophecies: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          interpretation: string | null
+          is_featured: boolean | null
+          name: string
+          prophecy_text: string
+          related_era_id: string | null
+          sort_order: number | null
+          source: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          interpretation?: string | null
+          is_featured?: boolean | null
+          name: string
+          prophecy_text: string
+          related_era_id?: string | null
+          sort_order?: number | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          interpretation?: string | null
+          is_featured?: boolean | null
+          name?: string
+          prophecy_text?: string
+          related_era_id?: string | null
+          sort_order?: number | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prophecies_related_era_id_fkey"
+            columns: ["related_era_id"]
+            isOneToOne: false
+            referencedRelation: "eras"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       stories: {
         Row: {

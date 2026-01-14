@@ -51,10 +51,10 @@ const Stories = () => {
           
           <div className="container mx-auto px-6 text-center relative">
             <p className="font-display text-xs tracking-[0.3em] text-primary uppercase mb-4">
-              物語
+              年代記
             </p>
             <h1 className="font-display text-4xl md:text-6xl tracking-wide mb-6">
-              Stories & Trailers
+              Chronicles
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Dive deeper into the world through side stories and cinematic trailers 
