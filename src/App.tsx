@@ -16,6 +16,7 @@ import ArtifactDetail from "./pages/ArtifactDetail";
 import ProphecyDetail from "./pages/ProphecyDetail";
 import Stories from "./pages/Stories";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminTimeline from "./pages/admin/AdminTimeline";
 import AdminCharacters from "./pages/admin/AdminCharacters";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/codex/prophecies/:id" element={<ProphecyDetail />} />
             <Route path="/stories" element={<Stories />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/timeline" element={<AdminTimeline />} />
             <Route path="/admin/characters" element={<AdminCharacters />} />
