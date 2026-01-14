@@ -4,13 +4,36 @@ import { Layout } from "@/components/layout/Layout";
 import { TimelineEvent } from "@/components/timeline/TimelineEvent";
 import { TimelineFilters } from "@/components/timeline/TimelineFilters";
 import { TimelineEraMarker } from "@/components/timeline/TimelineEraMarker";
+import { LoreStoryModal } from "@/components/timeline/LoreStoryModal";
+import { TrailerModal } from "@/components/timeline/TrailerModal";
 import { supabase } from "@/integrations/supabase/client";
 import { JapaneseAccent } from "@/components/ui/JapaneseAccent";
+
+interface TimelineEventData {
+  id: string;
+  title: string;
+  description?: string | null;
+  full_content?: string | null;
+  year?: number | null;
+  category?: string | null;
+  image_url?: string | null;
+  event_type?: string | null;
+  video_url?: string | null;
+  reading_time?: number | null;
+  era_id?: string | null;
+  eras?: {
+    id: string;
+    name: string;
+    color?: string | null;
+  } | null;
+}
 
 const Timeline = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedEra, setSelectedEra] = useState<string | null>(null);
+  const [selectedEventType, setSelectedEventType] = useState<string | null>(null);
   const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
+  const [modalEvent, setModalEvent] = useState<TimelineEventData | null>(null);
 
   const { data: eras } = useQuery({
     queryKey: ["eras"],
@@ -25,7 +48,7 @@ const Timeline = () => {
   });
 
   const { data: events, isLoading } = useQuery({
-    queryKey: ["timeline-events", selectedCategory, selectedEra],
+    queryKey: ["timeline-events", selectedCategory, selectedEra, selectedEventType],
     queryFn: async () => {
       let query = supabase
         .from("timeline_events")
@@ -37,6 +60,9 @@ const Timeline = () => {
       }
       if (selectedEra) {
         query = query.eq("era_id", selectedEra);
+      }
+      if (selectedEventType) {
+        query = query.eq("event_type", selectedEventType);
       }
 
       const { data, error } = await query;
@@ -50,6 +76,11 @@ const Timeline = () => {
     ? [...new Set(events.map((e) => e.category).filter(Boolean))]
     : [];
 
+  // Get unique event types from events
+  const eventTypes = events
+    ? [...new Set(events.map((e) => e.event_type).filter(Boolean))]
+    : [];
+
   // Group events by era
   const eventsByEra = events?.reduce((acc, event) => {
     const eraId = event.era_id || "unknown";
@@ -59,6 +90,14 @@ const Timeline = () => {
     acc[eraId].push(event);
     return acc;
   }, {} as Record<string, typeof events>);
+
+  const handleOpenModal = (event: TimelineEventData) => {
+    setModalEvent(event);
+  };
+
+  const handleCloseModal = () => {
+    setModalEvent(null);
+  };
 
   return (
     <Layout>
@@ -88,10 +127,13 @@ const Timeline = () => {
         <TimelineFilters
           categories={categories as string[]}
           eras={eras || []}
+          eventTypes={eventTypes as string[]}
           selectedCategory={selectedCategory}
           selectedEra={selectedEra}
+          selectedEventType={selectedEventType}
           onCategoryChange={setSelectedCategory}
           onEraChange={setSelectedEra}
+          onEventTypeChange={setSelectedEventType}
         />
 
         {/* Timeline */}
@@ -128,6 +170,7 @@ const Timeline = () => {
                                 expandedEventId === event.id ? null : event.id
                               )
                             }
+                            onOpenModal={() => handleOpenModal(event)}
                             position={index % 2 === 0 ? "left" : "right"}
                           />
                         ))}
@@ -153,6 +196,7 @@ const Timeline = () => {
                               expandedEventId === event.id ? null : event.id
                             )
                           }
+                          onOpenModal={() => handleOpenModal(event)}
                           position={index % 2 === 0 ? "left" : "right"}
                         />
                       ))}
@@ -170,7 +214,7 @@ const Timeline = () => {
                 The Timeline Awaits
               </h2>
               <p className="text-muted-foreground max-w-md mx-auto">
-                {selectedCategory || selectedEra
+                {selectedCategory || selectedEra || selectedEventType
                   ? "No events match your current filters. Try adjusting them."
                   : "Events will appear here once they are added to the chronicle."}
               </p>
@@ -178,6 +222,22 @@ const Timeline = () => {
           )}
         </div>
       </div>
+
+      {/* Modals */}
+      {modalEvent && modalEvent.event_type === "lore_story" && (
+        <LoreStoryModal
+          story={modalEvent}
+          open={true}
+          onClose={handleCloseModal}
+        />
+      )}
+      {modalEvent && modalEvent.event_type === "trailer" && (
+        <TrailerModal
+          trailer={modalEvent}
+          open={true}
+          onClose={handleCloseModal}
+        />
+      )}
     </Layout>
   );
 };
