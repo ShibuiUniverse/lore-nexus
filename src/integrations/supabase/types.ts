@@ -448,6 +448,7 @@ export type Database = {
           image_url: string | null
           is_featured: boolean | null
           reading_time: number | null
+          show_lore_badge: boolean | null
           sort_order: number | null
           title: string
           updated_at: string
@@ -465,6 +466,7 @@ export type Database = {
           image_url?: string | null
           is_featured?: boolean | null
           reading_time?: number | null
+          show_lore_badge?: boolean | null
           sort_order?: number | null
           title: string
           updated_at?: string
@@ -482,6 +484,7 @@ export type Database = {
           image_url?: string | null
           is_featured?: boolean | null
           reading_time?: number | null
+          show_lore_badge?: boolean | null
           sort_order?: number | null
           title?: string
           updated_at?: string
