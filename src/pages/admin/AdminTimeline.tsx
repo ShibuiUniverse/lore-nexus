@@ -36,6 +36,7 @@ interface TimelineEvent {
   image_url: string | null;
   era_id: string | null;
   is_featured: boolean;
+  show_lore_badge: boolean;
   sort_order: number;
 }
 
@@ -51,6 +52,7 @@ const emptyEvent: Partial<TimelineEvent> = {
   image_url: "",
   era_id: null,
   is_featured: false,
+  show_lore_badge: false,
   sort_order: 0,
 };
 
@@ -110,6 +112,7 @@ const AdminTimeline = () => {
             image_url: event.image_url || null,
             era_id: event.era_id,
             is_featured: event.is_featured,
+            show_lore_badge: event.show_lore_badge,
             sort_order: event.sort_order,
           })
           .eq("id", event.id);
@@ -127,6 +130,7 @@ const AdminTimeline = () => {
           image_url: event.image_url || null,
           era_id: event.era_id,
           is_featured: event.is_featured || false,
+          show_lore_badge: event.show_lore_badge || false,
           sort_order: event.sort_order || 0,
         });
         if (error) throw error;
@@ -406,15 +410,27 @@ const AdminTimeline = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="is_featured"
-                checked={editingEvent?.is_featured || false}
-                onChange={(e) => setEditingEvent({ ...editingEvent, is_featured: e.target.checked })}
-                className="rounded border-border"
-              />
-              <Label htmlFor="is_featured">Featured</Label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="is_featured"
+                  checked={editingEvent?.is_featured || false}
+                  onChange={(e) => setEditingEvent({ ...editingEvent, is_featured: e.target.checked })}
+                  className="rounded border-border"
+                />
+                <Label htmlFor="is_featured">Featured</Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="show_lore_badge"
+                  checked={editingEvent?.show_lore_badge || false}
+                  onChange={(e) => setEditingEvent({ ...editingEvent, show_lore_badge: e.target.checked })}
+                  className="rounded border-border"
+                />
+                <Label htmlFor="show_lore_badge">Show Lore Badge</Label>
+              </div>
             </div>
           </div>
 

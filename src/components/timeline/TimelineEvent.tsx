@@ -19,6 +19,7 @@ interface Event {
   event_type?: string | null;
   video_url?: string | null;
   reading_time?: number | null;
+  show_lore_badge?: boolean | null;
   eras?: Era | null;
 }
 
@@ -57,8 +58,8 @@ export function TimelineEvent({
     ? categoryColors[event.category] || "hsl(0, 72%, 50%)"
     : "hsl(0, 72%, 50%)";
 
-  // Content-based badge logic - badges shown based on what content exists
-  const hasLore = !!(event.full_content && event.full_content.length > 100);
+  // Badge logic - lore badge controlled by explicit flag, trailer by video_url
+  const hasLore = !!event.show_lore_badge;
   const hasTrailer = !!event.video_url;
   const hasBothContent = hasLore && hasTrailer;
   const hasAnyContent = hasLore || hasTrailer;
