@@ -1,4 +1,4 @@
-import { ChevronDown, BookOpen, Play, Clock } from "lucide-react";
+import { ChevronDown, BookOpen, Play, Clock, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -43,6 +43,7 @@ export function TimelineEvent({
     threshold: 0.15,
     rootMargin: "0px 0px -100px 0px"
   });
+  
   const categoryColors: Record<string, string> = {
     event: "hsl(0, 72%, 50%)",
     battle: "hsl(0, 60%, 45%)",
@@ -56,19 +57,14 @@ export function TimelineEvent({
     ? categoryColors[event.category] || "hsl(0, 72%, 50%)"
     : "hsl(0, 72%, 50%)";
 
-  const eventType = event.event_type || "event";
-  const isLoreStory = eventType === "lore_story";
-  const isTrailer = eventType === "trailer";
-  const isRegularEvent = eventType === "event";
-  
-  // Check content availability for badges
+  // Content-based badge logic - badges shown based on what content exists
   const hasLore = !!(event.full_content && event.full_content.length > 100);
   const hasTrailer = !!event.video_url;
   const hasBothContent = hasLore && hasTrailer;
+  const hasAnyContent = hasLore || hasTrailer;
   
-  // Check if this event has substantial content that should open in a modal
-  const hasLongContent = event.full_content && event.full_content.length > 500;
-  const shouldOpenModal = isLoreStory || isTrailer || hasLongContent || hasTrailer;
+  // Check if this event has content that should open in a modal
+  const shouldOpenModal = hasLore || hasTrailer;
 
   const handleCardClick = () => {
     if (shouldOpenModal) {
@@ -82,25 +78,6 @@ export function TimelineEvent({
   const handleBadgeClick = (e: React.MouseEvent, type: "lore" | "trailer") => {
     e.stopPropagation();
     onOpenModal(type);
-  };
-
-  // Event type indicator icon
-  const TypeIcon = () => {
-    if (isLoreStory) {
-      return (
-        <div className="absolute -top-2 -right-2 p-1.5 bg-primary/20 border border-primary/30 rounded-full">
-          <BookOpen size={14} className="text-primary" />
-        </div>
-      );
-    }
-    if (isTrailer) {
-      return (
-        <div className="absolute -top-2 -right-2 p-1.5 bg-accent/20 border border-accent/30 rounded-full">
-          <Play size={14} className="text-accent" />
-        </div>
-      );
-    }
-    return null;
   };
 
   return (
@@ -124,19 +101,11 @@ export function TimelineEvent({
       <div
         className={cn(
           "absolute left-6 md:left-1/2 top-6 w-3 h-3 rounded-full -translate-x-1/2 border-2 bg-background transition-all duration-300 group-hover:scale-125",
-          isLoreStory && "w-4 h-4 border-primary",
-          isTrailer && "w-4 h-4 border-accent",
-          hasBothContent && isRegularEvent && "w-4 h-4 border-primary"
+          hasAnyContent && "w-4 h-4 border-primary"
         )}
-        style={{ borderColor: isRegularEvent && !hasBothContent ? accentColor : undefined }}
+        style={{ borderColor: !hasAnyContent ? accentColor : undefined }}
       >
-        {isLoreStory && (
-          <BookOpen size={8} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary" />
-        )}
-        {isTrailer && (
-          <Play size={8} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-accent" />
-        )}
-        {hasBothContent && isRegularEvent && (
+        {hasAnyContent && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rounded-full" />
         )}
       </div>
@@ -148,11 +117,9 @@ export function TimelineEvent({
           position === "left" ? "right-1/2 mr-1.5" : "left-1/2 ml-1.5"
         )}
         style={{ 
-          backgroundColor: isLoreStory 
+          backgroundColor: hasAnyContent 
             ? "hsl(var(--primary))" 
-            : isTrailer 
-              ? "hsl(var(--accent))" 
-              : accentColor, 
+            : accentColor, 
           opacity: 0.3 
         }}
       />
@@ -172,16 +139,11 @@ export function TimelineEvent({
             className={cn(
               "relative overflow-hidden border bg-card/50 backdrop-blur-sm transition-all duration-300",
               "hover:bg-card/80",
-              isLoreStory && "border-primary/30 hover:border-primary/50",
-              isTrailer && "border-accent/30 hover:border-accent/50",
-              isRegularEvent && hasBothContent && "border-primary/30 hover:border-primary/50",
-              isRegularEvent && !hasBothContent && "border-border hover:border-primary/50",
-              isExpanded && isRegularEvent && "border-primary/50"
+              hasAnyContent && "border-primary/30 hover:border-primary/50",
+              !hasAnyContent && "border-border hover:border-primary/50",
+              isExpanded && !hasAnyContent && "border-primary/50"
             )}
           >
-            {/* Type indicator */}
-            <TypeIcon />
-
             {/* Image */}
             {event.image_url && (
               <div className="relative h-48 overflow-hidden">
@@ -192,8 +154,8 @@ export function TimelineEvent({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
                 
-                {/* Play overlay for trailers */}
-                {(isTrailer || (hasTrailer && !hasLore)) && (
+                {/* Play overlay for trailer-only entries */}
+                {hasTrailer && !hasLore && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover/card:opacity-100 transition-opacity">
                     <div className="w-16 h-16 rounded-full bg-accent/90 flex items-center justify-center">
                       <Play size={28} className="text-accent-foreground ml-1" />
@@ -216,11 +178,9 @@ export function TimelineEvent({
                   <span
                     className={cn(
                       "font-display text-2xl",
-                      isLoreStory && "text-primary",
-                      isTrailer && "text-accent",
-                      hasBothContent && isRegularEvent && "text-primary"
+                      hasAnyContent && "text-primary"
                     )}
-                    style={{ color: isRegularEvent && !hasBothContent ? accentColor : undefined }}
+                    style={{ color: !hasAnyContent ? accentColor : undefined }}
                   >
                     {event.year}
                   </span>
@@ -236,19 +196,7 @@ export function TimelineEvent({
                     {event.category}
                   </span>
                 )}
-                {isLoreStory && (
-                  <span className="flex items-center gap-1 px-2 py-0.5 text-xs uppercase tracking-wider border border-primary/50 text-primary">
-                    <BookOpen size={10} />
-                    Lore
-                  </span>
-                )}
-                {isTrailer && (
-                  <span className="flex items-center gap-1 px-2 py-0.5 text-xs uppercase tracking-wider border border-accent/50 text-accent">
-                    <Play size={10} />
-                    Trailer
-                  </span>
-                )}
-                {isLoreStory && event.reading_time && (
+                {event.reading_time && hasLore && (
                   <span className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock size={10} />
                     {event.reading_time} min
@@ -257,13 +205,7 @@ export function TimelineEvent({
               </div>
 
               {/* Title */}
-              <h3 className={cn(
-                "font-display text-lg tracking-wide mb-2 transition-colors",
-                isLoreStory && "group-hover/card:text-primary",
-                isTrailer && "group-hover/card:text-accent",
-                isRegularEvent && "group-hover/card:text-primary",
-                "text-foreground"
-              )}>
+              <h3 className="font-display text-lg tracking-wide mb-2 transition-colors group-hover/card:text-primary text-foreground">
                 {event.title}
               </h3>
 
@@ -274,81 +216,75 @@ export function TimelineEvent({
                 </p>
               )}
 
-              {/* Content Badges - For events with both lore and trailer */}
-              {isRegularEvent && hasBothContent && (
+              {/* Content Badges - Show based on available content */}
+              {hasAnyContent && (
                 <div
                   className={cn(
-                    "flex items-center gap-2 mt-4",
+                    "flex items-center gap-2 mt-4 flex-wrap",
                     position === "left" && "md:justify-end"
                   )}
                 >
-                  <button
-                    onClick={(e) => handleBadgeClick(e, "lore")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border border-primary/50 text-primary bg-primary/5 hover:bg-primary/20 transition-colors rounded"
+                  {/* Event badge - always show as base indicator */}
+                  <span
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border rounded"
+                    style={{
+                      borderColor: accentColor,
+                      color: accentColor,
+                      backgroundColor: `${accentColor}10`,
+                    }}
                   >
-                    <BookOpen size={12} />
-                    Read Lore
-                  </button>
-                  <button
-                    onClick={(e) => handleBadgeClick(e, "trailer")}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border border-accent/50 text-accent bg-accent/5 hover:bg-accent/20 transition-colors rounded"
-                  >
-                    <Play size={12} />
-                    Watch Trailer
-                  </button>
+                    <Calendar size={12} />
+                    Event
+                  </span>
+                  
+                  {/* Lore badge */}
+                  {hasLore && (
+                    <button
+                      onClick={(e) => handleBadgeClick(e, "lore")}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border border-primary/50 text-primary bg-primary/5 hover:bg-primary/20 transition-colors rounded"
+                    >
+                      <BookOpen size={12} />
+                      Read Lore
+                    </button>
+                  )}
+                  
+                  {/* Trailer badge */}
+                  {hasTrailer && (
+                    <button
+                      onClick={(e) => handleBadgeClick(e, "trailer")}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border border-accent/50 text-accent bg-accent/5 hover:bg-accent/20 transition-colors rounded"
+                    >
+                      <Play size={12} />
+                      Watch Trailer
+                    </button>
+                  )}
                 </div>
               )}
 
-              {/* Action indicator - Only show when there's single type of content */}
-              {!hasBothContent && (
+              {/* Action indicator - Only show when there's no modal content */}
+              {!hasAnyContent && event.full_content && (
                 <div
                   className={cn(
                     "flex items-center gap-2 mt-4 text-xs",
                     position === "left" && "md:justify-end"
                   )}
                 >
-                  {isLoreStory && (
-                    <span className="text-primary flex items-center gap-1">
-                      <BookOpen size={12} />
-                      Read Story
-                    </span>
-                  )}
-                  {isTrailer && (
-                    <span className="text-accent flex items-center gap-1">
-                      <Play size={12} />
-                      Watch Trailer
-                    </span>
-                  )}
-                  {isRegularEvent && hasLore && !hasTrailer && (
-                    <span className="text-primary flex items-center gap-1">
-                      <BookOpen size={12} />
-                      Read Full Story
-                    </span>
-                  )}
-                  {isRegularEvent && hasTrailer && !hasLore && (
-                    <span className="text-accent flex items-center gap-1">
-                      <Play size={12} />
-                      Watch Trailer
-                    </span>
-                  )}
-                  {isRegularEvent && !hasLore && !hasTrailer && event.full_content && (
-                    <span className="text-muted-foreground flex items-center gap-1">
-                      {isExpanded ? "Show less" : "Read more"}
-                      <ChevronDown
-                        size={14}
-                        className={cn(
-                          "transition-transform duration-300",
-                          isExpanded && "rotate-180"
-                        )}
-                      />
-                    </span>
-                  )}
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    {isExpanded ? "Show less" : "Read more"}
+                    <ChevronDown
+                      size={14}
+                      className={cn(
+                        "transition-transform duration-300",
+                        isExpanded && "rotate-180"
+                      )}
+                    />
+                  </span>
                 </div>
               )}
             </div>
 
-            {/* Expanded content (only for regular events without modal content) */}
-            {isRegularEvent && !shouldOpenModal && (
+            {/* Expanded content (only for events without modal content) */}
+            {!shouldOpenModal && (
               <div
                 className={cn(
                   "overflow-hidden transition-all duration-500",
