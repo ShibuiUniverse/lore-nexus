@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import {
   Dialog,
   DialogContent,
@@ -451,10 +452,12 @@ const AdminCharacters = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label>Image URL</Label>
-                <Input value={editingCharacter?.image_url || ""} onChange={(e) => setEditingCharacter({ ...editingCharacter, image_url: e.target.value })} />
-              </div>
+              <ImageUpload
+                value={editingCharacter?.image_url || null}
+                onChange={(url) => setEditingCharacter({ ...editingCharacter, image_url: url })}
+                label="Character Image"
+                folder="characters"
+              />
               <div className="grid gap-2">
                 <Label>Sort Order</Label>
                 <Input type="number" value={editingCharacter?.sort_order || 0} onChange={(e) => setEditingCharacter({ ...editingCharacter, sort_order: parseInt(e.target.value) || 0 })} />
