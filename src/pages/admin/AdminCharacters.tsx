@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -38,6 +39,18 @@ interface Character {
   sort_order: number;
 }
 
+interface PeopleGroup {
+  id: string;
+  name: string;
+}
+
+interface CharacterPeopleGroup {
+  id: string;
+  character_id: string;
+  people_group_id: string;
+  is_primary: boolean;
+}
+
 const emptyCharacter: Partial<Character> = {
   name: "",
   title: "",
@@ -56,12 +69,16 @@ const AdminCharacters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingCharacter, setEditingCharacter] = useState<Partial<Character> | null>(null);
+  const [selectedPeopleGroups, setSelectedPeopleGroups] = useState<string[]>([]);
+  const [primaryPeopleGroup, setPrimaryPeopleGroup] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     if (searchParams.get("action") === "new") {
       setEditingCharacter({ ...emptyCharacter });
+      setSelectedPeopleGroups([]);
+      setPrimaryPeopleGroup(null);
       setIsDialogOpen(true);
       setSearchParams({});
     }
@@ -76,6 +93,31 @@ const AdminCharacters = () => {
         .order("sort_order", { ascending: true });
       if (error) throw error;
       return data;
+    },
+  });
+
+  // Fetch character people groups for listing
+  const { data: characterPeopleGroupsMap } = useQuery({
+    queryKey: ["character-people-groups-all"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("character_people_groups")
+        .select("*, people_groups(name)");
+      if (error) throw error;
+      
+      // Group by character_id
+      const map: Record<string, { id: string; name: string; is_primary: boolean }[]> = {};
+      data?.forEach((cpg: any) => {
+        if (!map[cpg.character_id]) {
+          map[cpg.character_id] = [];
+        }
+        map[cpg.character_id].push({
+          id: cpg.people_group_id,
+          name: cpg.people_groups?.name || "",
+          is_primary: cpg.is_primary,
+        });
+      });
+      return map;
     },
   });
 
@@ -97,6 +139,33 @@ const AdminCharacters = () => {
     },
   });
 
+  // Fetch character's people groups when editing
+  const { data: editingCharacterPeopleGroups } = useQuery({
+    queryKey: ["character-people-groups", editingCharacter?.id],
+    queryFn: async () => {
+      if (!editingCharacter?.id) return [];
+      const { data, error } = await supabase
+        .from("character_people_groups")
+        .select("*")
+        .eq("character_id", editingCharacter.id);
+      if (error) throw error;
+      return data as CharacterPeopleGroup[];
+    },
+    enabled: !!editingCharacter?.id,
+  });
+
+  // Update selected people groups when editing character changes
+  useEffect(() => {
+    if (editingCharacterPeopleGroups) {
+      setSelectedPeopleGroups(editingCharacterPeopleGroups.map(cpg => cpg.people_group_id));
+      const primary = editingCharacterPeopleGroups.find(cpg => cpg.is_primary);
+      setPrimaryPeopleGroup(primary?.people_group_id || null);
+    } else if (!editingCharacter?.id) {
+      setSelectedPeopleGroups([]);
+      setPrimaryPeopleGroup(null);
+    }
+  }, [editingCharacterPeopleGroups, editingCharacter?.id]);
+
   const saveMutation = useMutation({
     mutationFn: async (character: Partial<Character>) => {
       const payload = {
@@ -108,23 +177,46 @@ const AdminCharacters = () => {
         faction: character.faction || null,
         image_url: character.image_url || null,
         era_id: character.era_id,
-        people_group_id: character.people_group_id,
+        people_group_id: primaryPeopleGroup, // Keep legacy field for compatibility
         is_featured: character.is_featured || false,
         sort_order: character.sort_order || 0,
       };
+
+      let characterId = character.id;
 
       if (character.id) {
         const { error } = await supabase.from("characters").update(payload).eq("id", character.id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from("characters").insert(payload);
+        const { data, error } = await supabase.from("characters").insert(payload).select().single();
         if (error) throw error;
+        characterId = data.id;
+      }
+
+      // Update people groups junction table
+      if (characterId) {
+        // Delete existing associations
+        await supabase.from("character_people_groups").delete().eq("character_id", characterId);
+        
+        // Insert new associations
+        if (selectedPeopleGroups.length > 0) {
+          const associations = selectedPeopleGroups.map(pgId => ({
+            character_id: characterId,
+            people_group_id: pgId,
+            is_primary: pgId === primaryPeopleGroup,
+          }));
+          const { error } = await supabase.from("character_people_groups").insert(associations);
+          if (error) throw error;
+        }
       }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-characters"] });
+      queryClient.invalidateQueries({ queryKey: ["character-people-groups-all"] });
       setIsDialogOpen(false);
       setEditingCharacter(null);
+      setSelectedPeopleGroups([]);
+      setPrimaryPeopleGroup(null);
       toast({ title: "Saved successfully" });
     },
     onError: (error) => {
@@ -139,6 +231,7 @@ const AdminCharacters = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-characters"] });
+      queryClient.invalidateQueries({ queryKey: ["character-people-groups-all"] });
       toast({ title: "Deleted successfully" });
     },
     onError: (error) => {
@@ -154,6 +247,29 @@ const AdminCharacters = () => {
     saveMutation.mutate(editingCharacter);
   };
 
+  const handlePeopleGroupToggle = (groupId: string, checked: boolean) => {
+    if (checked) {
+      setSelectedPeopleGroups(prev => [...prev, groupId]);
+      // If this is the first selection, make it primary
+      if (selectedPeopleGroups.length === 0) {
+        setPrimaryPeopleGroup(groupId);
+      }
+    } else {
+      setSelectedPeopleGroups(prev => prev.filter(id => id !== groupId));
+      // If removing the primary, set the first remaining as primary
+      if (groupId === primaryPeopleGroup) {
+        const remaining = selectedPeopleGroups.filter(id => id !== groupId);
+        setPrimaryPeopleGroup(remaining[0] || null);
+      }
+    }
+  };
+
+  const handleSetPrimary = (groupId: string) => {
+    if (selectedPeopleGroups.includes(groupId)) {
+      setPrimaryPeopleGroup(groupId);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -162,7 +278,7 @@ const AdminCharacters = () => {
             <h1 className="font-display text-3xl tracking-wide text-foreground mb-2">Characters</h1>
             <p className="text-muted-foreground">Manage all characters in your lore</p>
           </div>
-          <Button onClick={() => { setEditingCharacter({ ...emptyCharacter }); setIsDialogOpen(true); }}>
+          <Button onClick={() => { setEditingCharacter({ ...emptyCharacter }); setSelectedPeopleGroups([]); setPrimaryPeopleGroup(null); setIsDialogOpen(true); }}>
             <Plus size={18} className="mr-2" /> Add Character
           </Button>
         </div>
@@ -179,34 +295,58 @@ const AdminCharacters = () => {
                   <th className="text-left px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">Name</th>
                   <th className="text-left px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">Title</th>
                   <th className="text-left px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">Faction</th>
+                  <th className="text-left px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">People Groups</th>
                   <th className="text-left px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">Era</th>
                   <th className="text-right px-4 py-3 text-xs uppercase tracking-wider text-muted-foreground">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {characters.map((char) => (
-                  <tr key={char.id} className="hover:bg-muted/30 transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-3">
-                        {char.image_url && (
-                          <img src={char.image_url} alt="" className="w-10 h-10 rounded-full object-cover" />
+                {characters.map((char) => {
+                  const charPeopleGroups = characterPeopleGroupsMap?.[char.id] || [];
+                  return (
+                    <tr key={char.id} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          {char.image_url && (
+                            <img src={char.image_url} alt="" className="w-10 h-10 rounded-full object-cover" />
+                          )}
+                          <span className="font-medium text-foreground">{char.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{char.title || "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{char.faction || "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">
+                        {charPeopleGroups.length > 0 ? (
+                          <div className="flex flex-wrap gap-1">
+                            {charPeopleGroups.map((pg) => (
+                              <span
+                                key={pg.id}
+                                className={`text-xs px-2 py-0.5 rounded ${
+                                  pg.is_primary
+                                    ? "bg-primary/20 text-primary border border-primary/30"
+                                    : "bg-muted text-muted-foreground"
+                                }`}
+                              >
+                                {pg.name}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          "—"
                         )}
-                        <span className="font-medium text-foreground">{char.name}</span>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-muted-foreground">{char.title || "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{char.faction || "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{char.eras?.name || "—"}</td>
-                    <td className="px-4 py-3 text-right">
-                      <Button variant="ghost" size="sm" onClick={() => { setEditingCharacter(char); setIsDialogOpen(true); }}>
-                        <Pencil size={16} />
-                      </Button>
-                      <Button variant="ghost" size="sm" onClick={() => { if (confirm("Delete this character?")) deleteMutation.mutate(char.id); }}>
-                        <Trash2 size={16} className="text-destructive" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{char.eras?.name || "—"}</td>
+                      <td className="px-4 py-3 text-right">
+                        <Button variant="ghost" size="sm" onClick={() => { setEditingCharacter(char); setIsDialogOpen(true); }}>
+                          <Pencil size={16} />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => { if (confirm("Delete this character?")) deleteMutation.mutate(char.id); }}>
+                          <Trash2 size={16} className="text-destructive" />
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           ) : (
@@ -250,7 +390,7 @@ const AdminCharacters = () => {
               <Textarea value={editingCharacter?.abilities || ""} onChange={(e) => setEditingCharacter({ ...editingCharacter, abilities: e.target.value })} rows={3} />
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label>Faction</Label>
                 <Input value={editingCharacter?.faction || ""} onChange={(e) => setEditingCharacter({ ...editingCharacter, faction: e.target.value })} />
@@ -265,15 +405,48 @@ const AdminCharacters = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid gap-2">
-                <Label>People Group</Label>
-                <Select value={editingCharacter?.people_group_id || "none"} onValueChange={(val) => setEditingCharacter({ ...editingCharacter, people_group_id: val === "none" ? null : val })}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">None</SelectItem>
-                    {peopleGroups?.map((pg) => <SelectItem key={pg.id} value={pg.id}>{pg.name}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+            </div>
+
+            {/* People Groups Multi-Select */}
+            <div className="grid gap-2">
+              <Label>People Groups</Label>
+              <p className="text-xs text-muted-foreground">Select one or more people groups. Click the star to set the primary group.</p>
+              <div className="border border-border rounded-md p-3 space-y-2 max-h-40 overflow-y-auto bg-background">
+                {peopleGroups?.map((pg) => {
+                  const isSelected = selectedPeopleGroups.includes(pg.id);
+                  const isPrimary = primaryPeopleGroup === pg.id;
+                  return (
+                    <div key={pg.id} className="flex items-center gap-3">
+                      <Checkbox
+                        id={`pg-${pg.id}`}
+                        checked={isSelected}
+                        onCheckedChange={(checked) => handlePeopleGroupToggle(pg.id, !!checked)}
+                      />
+                      <label
+                        htmlFor={`pg-${pg.id}`}
+                        className="text-sm flex-1 cursor-pointer"
+                      >
+                        {pg.name}
+                      </label>
+                      {isSelected && (
+                        <button
+                          type="button"
+                          onClick={() => handleSetPrimary(pg.id)}
+                          className={`text-xs px-2 py-0.5 rounded transition-colors ${
+                            isPrimary
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted text-muted-foreground hover:bg-muted/80"
+                          }`}
+                        >
+                          {isPrimary ? "Primary" : "Set Primary"}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+                {(!peopleGroups || peopleGroups.length === 0) && (
+                  <p className="text-sm text-muted-foreground">No people groups available</p>
+                )}
               </div>
             </div>
 

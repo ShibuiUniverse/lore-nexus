@@ -109,6 +109,45 @@ export type Database = {
           },
         ]
       }
+      character_people_groups: {
+        Row: {
+          character_id: string
+          created_at: string
+          id: string
+          is_primary: boolean | null
+          people_group_id: string
+        }
+        Insert: {
+          character_id: string
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          people_group_id: string
+        }
+        Update: {
+          character_id?: string
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          people_group_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "character_people_groups_character_id_fkey"
+            columns: ["character_id"]
+            isOneToOne: false
+            referencedRelation: "characters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "character_people_groups_people_group_id_fkey"
+            columns: ["people_group_id"]
+            isOneToOne: false
+            referencedRelation: "people_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       characters: {
         Row: {
           abilities: string | null

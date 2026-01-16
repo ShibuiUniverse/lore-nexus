@@ -5,6 +5,17 @@ import { Layout } from "@/components/layout/Layout";
 import { JapaneseAccent } from "@/components/ui/JapaneseAccent";
 import { supabase } from "@/integrations/supabase/client";
 
+interface PeopleGroupWithDetails {
+  id: string;
+  people_group_id: string;
+  is_primary: boolean;
+  people_groups: {
+    id: string;
+    name: string;
+    image_url: string | null;
+  } | null;
+}
+
 const CharacterDetail = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -18,6 +29,20 @@ const CharacterDetail = () => {
         .maybeSingle();
       if (error) throw error;
       return data;
+    },
+    enabled: !!id,
+  });
+
+  // Fetch character's people groups
+  const { data: characterPeopleGroups } = useQuery({
+    queryKey: ["character-people-groups", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("character_people_groups")
+        .select("*, people_groups(id, name, image_url)")
+        .eq("character_id", id);
+      if (error) throw error;
+      return data as PeopleGroupWithDetails[];
     },
     enabled: !!id,
   });
@@ -59,6 +84,11 @@ const CharacterDetail = () => {
       </Layout>
     );
   }
+
+  // Sort people groups so primary comes first
+  const sortedPeopleGroups = characterPeopleGroups
+    ? [...characterPeopleGroups].sort((a, b) => (b.is_primary ? 1 : 0) - (a.is_primary ? 1 : 0))
+    : [];
 
   return (
     <Layout>
@@ -237,6 +267,29 @@ const CharacterDetail = () => {
                         style={{ color: character.eras.color || undefined }}
                       >
                         {character.eras.name}
+                      </dd>
+                    </div>
+                  )}
+                  {sortedPeopleGroups.length > 0 && (
+                    <div>
+                      <dt className="text-xs text-muted-foreground uppercase tracking-wider">
+                        People {sortedPeopleGroups.length > 1 ? "Groups" : "Group"}
+                      </dt>
+                      <dd className="mt-2 space-y-2">
+                        {sortedPeopleGroups.map((cpg) => (
+                          <Link
+                            key={cpg.id}
+                            to={`/peoples/${cpg.people_group_id}`}
+                            className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                          >
+                            <span>{cpg.people_groups?.name}</span>
+                            {cpg.is_primary && (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary">
+                                Primary
+                              </span>
+                            )}
+                          </Link>
+                        ))}
                       </dd>
                     </div>
                   )}
