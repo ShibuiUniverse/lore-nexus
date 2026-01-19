@@ -10,6 +10,7 @@ import {
   Home,
   ChevronLeft,
   ChevronRight,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
@@ -18,6 +19,7 @@ import { useState } from "react";
 const navItems = [
   { to: "/admin", icon: Home, label: "Dashboard", end: true },
   { to: "/admin/timeline", icon: Calendar, label: "Timeline Events" },
+  { to: "/admin/eras", icon: Clock, label: "Eras" },
   { to: "/admin/characters", icon: Users, label: "Characters" },
   { to: "/admin/locations", icon: MapPin, label: "Locations" },
   { to: "/admin/peoples", icon: Users, label: "People Groups" },
