@@ -25,6 +25,7 @@ import AdminPeoples from "./pages/admin/AdminPeoples";
 import AdminArtifacts from "./pages/admin/AdminArtifacts";
 import AdminProphecies from "./pages/admin/AdminProphecies";
 import AdminStories from "./pages/admin/AdminStories";
+import AdminEras from "./pages/admin/AdminEras";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/timeline" element={<AdminTimeline />} />
+            <Route path="/admin/eras" element={<AdminEras />} />
             <Route path="/admin/characters" element={<AdminCharacters />} />
             <Route path="/admin/locations" element={<AdminLocations />} />
             <Route path="/admin/peoples" element={<AdminPeoples />} />
