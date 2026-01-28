@@ -149,9 +149,9 @@ const CharacterDetail = () => {
 
         {/* Content section */}
         <div className="relative container mx-auto px-6 py-12">
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid lg:grid-cols-12 gap-8">
             {/* Main content */}
-            <div className="md:col-span-2 space-y-10">
+            <div className="lg:col-span-7 space-y-10">
               {/* Description */}
               {character.description && (
                 <section
@@ -239,8 +239,33 @@ const CharacterDetail = () => {
               )}
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
+            {/* Sidebar with full image */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Full Character Image */}
+              {character.image_url && (
+                <div
+                  className="sticky top-24 opacity-0 animate-slide-in-right"
+                  style={{ animationDelay: "0.3s" }}
+                >
+                  <div className="relative border border-border bg-card/30 backdrop-blur-sm overflow-hidden">
+                    <div className="aspect-[3/4] relative">
+                      <img
+                        src={character.image_url}
+                        alt={character.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <p className="font-display text-xs tracking-[0.2em] text-primary uppercase">
+                        {character.faction || "Character Portrait"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Details card */}
               <div
                 className="p-6 border border-border bg-card/30 backdrop-blur-sm opacity-0 animate-slide-in-right"
                 style={{ animationDelay: "0.4s" }}
