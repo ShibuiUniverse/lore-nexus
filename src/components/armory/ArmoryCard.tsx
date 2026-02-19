@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sword, Skull, Ship, Users, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +39,15 @@ const COLLECTION_CONFIG: Record<string, { label: string; color: string; icon: Re
 
 export function ArmoryCard({ item, index = 0 }: ArmoryCardProps) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
   const collection = COLLECTION_CONFIG[item.power_description ?? ""] ?? {
     label: item.power_description ?? "Unknown",
