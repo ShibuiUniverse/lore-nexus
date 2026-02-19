@@ -87,21 +87,17 @@ export function TimelineEvent({
       id={event.id}
       className={cn(
         "relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 group",
-        position === "right" && "md:direction-rtl",
         "transition-all duration-700 ease-out",
-        isVisible 
-          ? "opacity-100 translate-y-0" 
+        isVisible
+          ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-12"
       )}
-      style={{ 
-        direction: "ltr",
-        transitionDelay: `${(index % 3) * 100}ms`
-      }}
+      style={{ transitionDelay: `${(index % 3) * 100}ms` }}
     >
-      {/* Timeline node */}
+      {/* Timeline node — sits on the center line */}
       <div
         className={cn(
-          "absolute left-6 md:left-1/2 top-6 w-3 h-3 rounded-full -translate-x-1/2 border-2 bg-background transition-all duration-300 group-hover:scale-125",
+          "absolute left-6 md:left-1/2 top-6 w-3 h-3 rounded-full -translate-x-1/2 border-2 bg-background transition-all duration-300 group-hover:scale-125 z-10",
           hasAnyContent && "w-4 h-4 border-primary"
         )}
         style={{ borderColor: !hasAnyContent ? accentColor : undefined }}
@@ -111,30 +107,30 @@ export function TimelineEvent({
         )}
       </div>
 
-      {/* Connecting line to node */}
+      {/* Connecting line: anchored at center, extends into the card column */}
       <div
         className={cn(
-          "hidden md:block absolute top-7 h-px w-8",
-          position === "left" ? "right-1/2 mr-1.5" : "left-1/2 ml-1.5"
+          "hidden md:block absolute top-7 h-px w-10",
+          position === "left" ? "right-1/2" : "left-1/2"
         )}
-        style={{ 
-          backgroundColor: hasAnyContent 
-            ? "hsl(var(--primary))" 
-            : accentColor, 
-          opacity: 0.3 
+        style={{
+          backgroundColor: hasAnyContent ? "hsl(var(--primary))" : accentColor,
+          opacity: 0.4,
         }}
       />
 
-      {/* Event card */}
+      {/* Card — explicit column placement, no spacer divs needed */}
       <div
         className={cn(
           "ml-12 md:ml-0",
-          position === "left" ? "md:pr-12 md:text-right" : "md:pl-12 md:col-start-2"
+          position === "left"
+            ? "md:col-start-1 md:pr-12 md:text-right"
+            : "md:col-start-2 md:pl-12"
         )}
       >
         <button
           onClick={handleCardClick}
-          className="w-full text-left group/card"
+          className={cn("w-full group/card", position === "left" ? "md:text-right" : "text-left")}
         >
           <div
             className={cn(
@@ -304,9 +300,6 @@ export function TimelineEvent({
           </div>
         </button>
       </div>
-
-      {/* Spacer for alternating layout */}
-      <div className="hidden md:block" />
     </div>
   );
 }
