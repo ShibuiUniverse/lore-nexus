@@ -156,6 +156,9 @@ const Timeline = () => {
             </div>
           ) : events && events.length > 0 ? (
             <div className="relative">
+              {/* Single center line running through the full timeline */}
+              <div className="absolute left-6 md:left-1/2 inset-y-0 w-px bg-primary/15 pointer-events-none" />
+
               {/* Events grouped by era */}
               <div className="space-y-8">
                 {eras?.map((era) => {
@@ -167,9 +170,8 @@ const Timeline = () => {
                       {/* Era marker */}
                       <TimelineEraMarker era={era} />
 
-                      {/* Era events — center line scoped to each era's events only */}
-                      <div className="relative space-y-8 mt-8">
-                        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent pointer-events-none" />
+                      {/* Era events */}
+                      <div className="space-y-8 mt-8">
                         {eraEvents.map((event, index) => (
                           <TimelineEvent
                             key={event.id}
@@ -196,8 +198,7 @@ const Timeline = () => {
                     <TimelineEraMarker
                       era={{ id: "unknown", name: "Unknown Era", color: "#666666" }}
                     />
-                    <div className="relative space-y-8 mt-8">
-                      <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent pointer-events-none" />
+                    <div className="space-y-8 mt-8">
                       {eventsByEra["unknown"].map((event, index) => (
                         <TimelineEvent
                           key={event.id}

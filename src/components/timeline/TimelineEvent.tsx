@@ -86,7 +86,7 @@ export function TimelineEvent({
       ref={ref}
       id={event.id}
       className={cn(
-        "relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 group",
+        "relative grid grid-cols-1 md:grid-cols-2 group",
         "transition-all duration-700 ease-out",
         isVisible
           ? "opacity-100 translate-y-0"
@@ -110,7 +110,7 @@ export function TimelineEvent({
       {/* Connecting line: anchored at center, extends into the card column */}
       <div
         className={cn(
-          "hidden md:block absolute top-7 h-px w-10",
+          "hidden md:block absolute top-7 h-px w-12 z-10",
           position === "left" ? "right-1/2" : "left-1/2"
         )}
         style={{
