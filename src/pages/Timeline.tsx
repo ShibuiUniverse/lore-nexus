@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/layout/Layout";
 import { TimelineEvent } from "@/components/timeline/TimelineEvent";
@@ -35,6 +35,39 @@ const Timeline = () => {
   const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
   const [modalEvent, setModalEvent] = useState<TimelineEventData | null>(null);
   const [modalType, setModalType] = useState<"lore" | "trailer">("lore");
+
+  // Scroll-driven mask: keeps the center line visible only around the current
+  // viewport position, with soft fades at top and bottom — same feel as the
+  // old per-era gradient lines but without gaps between sections.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (!containerRef.current || !lineRef.current) return;
+      const { top, height } = containerRef.current.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Fraction of container: 0 = container top aligned with viewport top
+      const visTop = Math.max(0, -top / height);
+      const visBot = Math.min(1, (vh - top) / height);
+
+      // Soft fade zone: 8% of container height on each edge of the window
+      const fade = 0.08;
+      const t0 = `${Math.max(0, (visTop - fade) * 100).toFixed(1)}%`;
+      const t1 = `${(visTop * 100).toFixed(1)}%`;
+      const b0 = `${(visBot * 100).toFixed(1)}%`;
+      const b1 = `${Math.min(100, (visBot + fade) * 100).toFixed(1)}%`;
+
+      const mask = `linear-gradient(to bottom, transparent ${t0}, black ${t1}, black ${b0}, transparent ${b1})`;
+      lineRef.current.style.maskImage = mask;
+      lineRef.current.style.webkitMaskImage = mask;
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const { data: eras } = useQuery({
     queryKey: ["eras"],
@@ -155,9 +188,12 @@ const Timeline = () => {
               <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : events && events.length > 0 ? (
-            <div className="relative">
-              {/* Single center line running through the full timeline */}
-              <div className="absolute left-6 md:left-1/2 inset-y-0 w-px bg-primary/15 pointer-events-none" />
+            <div ref={containerRef} className="relative">
+              {/* Single center line — scroll-masked to stay visible only near the viewport */}
+              <div
+                ref={lineRef}
+                className="absolute left-6 md:left-1/2 inset-y-0 w-px bg-primary/30 pointer-events-none"
+              />
 
               {/* Events grouped by era */}
               <div className="space-y-8">
