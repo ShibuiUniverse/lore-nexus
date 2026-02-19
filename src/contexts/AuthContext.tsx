@@ -41,38 +41,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Set up auth state listener FIRST
+    // onAuthStateChange fires INITIAL_SESSION immediately with the current session (or null),
+    // so getSession() is redundant. We handle all auth events here.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
-          // Use setTimeout to avoid potential deadlock with Supabase client
+          // Stay in loading state while we check the role to avoid a flash of "Access Denied"
+          setIsLoading(true);
+          // setTimeout avoids a Supabase client deadlock when calling DB inside this callback
           setTimeout(async () => {
             const adminStatus = await checkAdminRole(session.user.id);
             setIsAdmin(adminStatus);
+            setIsLoading(false);
           }, 0);
         } else {
           setIsAdmin(false);
+          setIsLoading(false);
         }
-        
-        setIsLoading(false);
       }
     );
-
-    // THEN check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        const adminStatus = await checkAdminRole(session.user.id);
-        setIsAdmin(adminStatus);
-      }
-      
-      setIsLoading(false);
-    });
 
     return () => subscription.unsubscribe();
   }, []);
