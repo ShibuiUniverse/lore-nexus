@@ -47,7 +47,7 @@ export function TimelineEraMarker({ era }: TimelineEraMarkerProps) {
 
       {/* Era marker diamond — pinned to vertical center of this section */}
       <div
-        className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rotate-45 border-2 z-20 shadow-lg"
+        className="absolute left-6 md:left-1/2 top-8 md:top-12 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rotate-45 border-2 z-20 shadow-lg"
         style={{
           borderColor: era.color || "hsl(0, 72%, 50%)",
           backgroundColor: "hsl(var(--background))",
