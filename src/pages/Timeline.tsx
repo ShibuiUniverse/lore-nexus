@@ -52,11 +52,13 @@ const Timeline = () => {
       const visTop = Math.max(0, -top / height);
       const visBot = Math.min(1, (vh - top) / height);
 
-      // Soft fade zone: 8% of container height on each edge of the window
-      const fade = 0.08;
+      // Soft fade zone: 10% of container height on each edge of the window.
+      // t1/b0 are clamped so there's always a minimum fade zone even when the
+      // container top/bottom is flush with the viewport edge.
+      const fade = 0.10;
       const t0 = `${Math.max(0, (visTop - fade) * 100).toFixed(1)}%`;
-      const t1 = `${(visTop * 100).toFixed(1)}%`;
-      const b0 = `${(visBot * 100).toFixed(1)}%`;
+      const t1 = `${Math.max(fade * 100, visTop * 100).toFixed(1)}%`;
+      const b0 = `${Math.min((1 - fade) * 100, visBot * 100).toFixed(1)}%`;
       const b1 = `${Math.min(100, (visBot + fade) * 100).toFixed(1)}%`;
 
       const mask = `linear-gradient(to bottom, transparent ${t0}, black ${t1}, black ${b0}, transparent ${b1})`;

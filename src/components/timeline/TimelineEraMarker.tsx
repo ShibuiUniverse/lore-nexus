@@ -58,7 +58,7 @@ export function TimelineEraMarker({ era }: TimelineEraMarkerProps) {
       {/* Era label */}
       <div className="ml-16 md:ml-0 flex flex-col items-start md:items-center relative z-10">
         <div
-          className="px-8 py-3 border-2 bg-background/80 backdrop-blur-sm"
+          className="px-8 py-3 border-2 bg-background"
           style={{ borderColor: era.color || "hsl(0, 72%, 50%)" }}
         >
           <h2
