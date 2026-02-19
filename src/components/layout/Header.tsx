@@ -8,6 +8,7 @@ const navLinks = [
   { href: "/characters", label: "Characters" },
   { href: "/realms", label: "Realms & Peoples" },
   { href: "/codex", label: "Codex" },
+  { href: "/armory", label: "Armory" },
   { href: "/stories", label: "Chronicles" },
 ];
 

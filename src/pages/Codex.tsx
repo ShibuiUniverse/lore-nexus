@@ -29,7 +29,7 @@ const Codex = () => {
 
       const { data, error } = await query;
       if (error) throw error;
-      return data;
+      return data?.filter(a => !a.artifact_type?.startsWith("armory_")) ?? [];
     },
   });
 

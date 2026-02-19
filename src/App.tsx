@@ -14,6 +14,7 @@ import PeopleDetail from "./pages/PeopleDetail";
 import Codex from "./pages/Codex";
 import ArtifactDetail from "./pages/ArtifactDetail";
 import ProphecyDetail from "./pages/ProphecyDetail";
+import Armory from "./pages/Armory";
 import Stories from "./pages/Stories";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/codex" element={<Codex />} />
             <Route path="/codex/artifacts/:id" element={<ArtifactDetail />} />
             <Route path="/codex/prophecies/:id" element={<ProphecyDetail />} />
+            <Route path="/armory" element={<Armory />} />
             <Route path="/stories" element={<Stories />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
