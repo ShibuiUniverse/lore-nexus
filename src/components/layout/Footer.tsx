@@ -43,7 +43,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} The Lorekeeper
+            © {new Date().getFullYear()} Shibui Labs, LLC
           </p>
         </div>
       </div>
