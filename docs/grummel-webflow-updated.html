@@ -1,0 +1,765 @@
+<!-- Chat Modal (Hidden by default) -->
+<div id="chat-modal" class="chat-modal" style="display: none;">
+    <!-- Floating Avatar (Desktop only) -->
+    <div class="floating-avatar">
+        <video class="avatar-video idle-video" autoplay muted loop playsinline preload="auto">
+            <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Idle.webm" type="video/webm">
+            <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+        </video>
+        <video class="avatar-video hand-video active" muted playsinline preload="auto">
+            <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Hand.webm" type="video/webm">
+            <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+        </video>
+        <video class="avatar-video talk1-video" muted playsinline preload="auto">
+            <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Talk1.webm" type="video/webm">
+            <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+        </video>
+        <video class="avatar-video talk2-video" muted playsinline preload="auto">
+            <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Talk2.webm" type="video/webm">
+            <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+        </video>
+    </div>
+
+    <div class="chat-modal-content">
+        <div class="chat-header">
+            <h3>
+                <div class="grummel-avatar-container">
+                    <video class="header-avatar-video idle-video" muted loop playsinline preload="auto">
+                        <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Idle.webm"
+                            type="video/webm">
+                        <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+                    </video>
+                    <video class="header-avatar-video hand-video active" muted playsinline preload="auto">
+                        <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Hand.webm"
+                            type="video/webm">
+                        <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+                    </video>
+                    <video class="header-avatar-video talk1-video" muted playsinline preload="auto">
+                        <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Talk1.webm"
+                            type="video/webm">
+                        <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+                    </video>
+                    <video class="header-avatar-video talk2-video" muted playsinline preload="auto">
+                        <source src="https://github.com/jorgez19/videosShibui/raw/refs/heads/main/Talk2.webm"
+                            type="video/webm">
+                        <img src="https://i.imgur.com/Xb6J67x.png" alt="Grummel">
+                    </video>
+                </div>
+                Grummel
+            </h3>
+            <button id="close-chat-btn" class="close-button">&times;</button>
+        </div>
+        <div id="chatbot-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input id="chatbot-input" type="text" placeholder="Type your message..." />
+            <button id="chatbot-send" class="send-btn">Send</button>
+        </div>
+        <div class="chat-footer">
+            <button id="chatbot-clear" class="clear-btn">Clear Chat</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Chat Modal Container */
+    .chat-modal {
+        position: fixed;
+        top: 2vw;
+        right: 2vw;
+        width: 60vw;
+        height: 80vh;
+        z-index: 10000;
+        display: flex;
+        align-items: flex-start;
+        gap: 1vw;
+    }
+
+    /* Floating Avatar for Desktop */
+    .floating-avatar {
+        width: 15vw;
+        height: 20vw;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: avatarSlideIn 0.3s ease 0.1s both;
+    }
+
+    .avatar-video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: none;
+    }
+
+    .avatar-video.active {
+        opacity: 1;
+    }
+
+    @keyframes avatarSlideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-100%) translateY(-20%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+    }
+
+    .chat-modal-content {
+        background: #f4f1e8;
+        width: 38vw;
+        height: 100%;
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.4);
+        animation: chatSlideIn 0.3s ease;
+        border: 2px solid #8b4513;
+    }
+
+    @keyframes chatSlideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100%) translateY(-20%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, #8b4513, #654321);
+        color: #f4f1e8;
+        padding: 1.5vw 2vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #654321;
+    }
+
+    .chat-header h3 {
+        margin: 0;
+        font-size: 1.2vw;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5vw;
+    }
+
+    /* Header avatar (shown on mobile) */
+    .grummel-avatar-container {
+        position: relative;
+        width: 2vw;
+        height: 2vw;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #d4af37;
+        display: none;
+        /* Hidden on desktop */
+    }
+
+    .header-avatar-video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: none;
+    }
+
+    .header-avatar-video.active {
+        opacity: 1;
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        color: #f4f1e8;
+        font-size: 1.5vw;
+        cursor: pointer;
+        width: 2vw;
+        height: 2vw;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .close-button:hover {
+        background: rgba(244, 241, 232, 0.2);
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 1vw;
+        overflow-y: auto;
+        background: #f9f6ed;
+        background-image:
+            radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+    }
+
+    .message {
+        margin-bottom: 0.8vw;
+        padding: 0.7vw 0.9vw;
+        border-radius: 0.8vw;
+        max-width: 85%;
+        word-wrap: break-word;
+        font-size: 0.9vw;
+        line-height: 1.4;
+    }
+
+    .message.user {
+        background: #d4af37;
+        color: #2c1810;
+        margin-left: auto;
+        border-bottom-right-radius: 0.3vw;
+        border: 1px solid #b8941f;
+        font-weight: 500;
+    }
+
+    .message.assistant {
+        background: #f4f1e8;
+        color: #2c1810;
+        border: 2px solid #8b4513;
+        border-bottom-left-radius: 0.3vw;
+        box-shadow: 0 0.2vw 0.4vw rgba(139, 69, 19, 0.2);
+    }
+
+    .message.system {
+        background: #f4e4c1;
+        color: #8b4513;
+        border: 2px solid #d4af37;
+        font-style: italic;
+    }
+
+    .thinking-message {
+        min-height: 1.5em;
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+        letter-spacing: 0.2em;
+        color: #8b4513 !important;
+    }
+
+    .chat-input-area {
+        display: flex;
+        padding: 0.8vw;
+        border-top: 2px solid #8b4513;
+        background: #f4f1e8;
+        gap: 0.5vw;
+    }
+
+    #chatbot-input {
+        flex: 1;
+        border: 2px solid #8b4513;
+        border-radius: 1.2vw;
+        padding: 0.6vw 0.8vw;
+        font-size: max(16px, 0.9vw);
+        outline: none;
+        transition: border-color 0.2s;
+        background: #f9f6ed;
+        color: #2c1810;
+    }
+
+    #chatbot-input:focus {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+    }
+
+    .send-btn {
+        background: linear-gradient(135deg, #d4af37, #b8941f);
+        color: #2c1810;
+        border: 2px solid #8b4513;
+        border-radius: 1.2vw;
+        padding: 0.6vw 1vw;
+        font-size: 0.9vw;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .send-btn:hover {
+        background: linear-gradient(135deg, #e6c547, #d4af37);
+        transform: scale(1.05);
+    }
+
+    .send-btn:disabled {
+        background: #a0956b;
+        color: #6b6b6b;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .chat-footer {
+        padding: 0.6vw;
+        border-top: 2px solid #8b4513;
+        background: #f4f1e8;
+        text-align: center;
+    }
+
+    .clear-btn {
+        background: none;
+        border: 2px solid #8b4513;
+        color: #8b4513;
+        padding: 0.4vw 0.8vw;
+        border-radius: 0.6vw;
+        font-size: 0.8vw;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 500;
+    }
+
+    .clear-btn:hover {
+        background: #f4f1e8;
+        border-color: #d4af37;
+        color: #d4af37;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .chat-modal {
+            top: 5vh;
+            right: 2.5vw;
+            left: 2.5vw;
+            bottom: 5vh;
+            width: 95vw;
+            height: 90vh;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        /* Hide floating avatar on mobile */
+        .floating-avatar {
+            display: none;
+        }
+
+        /* Show header avatar on mobile */
+        .grummel-avatar-container {
+            display: block;
+            width: 15vw;
+            height: 15vw;
+        }
+
+        .chat-modal-content {
+            width: 100%;
+            border-radius: 2vw;
+        }
+
+        .chat-header {
+            padding: 3vw 4vw;
+        }
+
+        .chat-header h3 {
+            font-size: 4vw;
+        }
+
+        .close-button {
+            font-size: 5vw;
+            width: 6vw;
+            height: 6vw;
+        }
+
+        .message {
+            font-size: 3.5vw;
+            padding: 2vw 2.5vw;
+            margin-bottom: 2vw;
+            border-radius: 2vw;
+        }
+
+        #chatbot-input {
+            font-size: max(16px, 3.5vw);
+            padding: 2vw 2.5vw;
+            border-radius: 3vw;
+        }
+
+        .send-btn {
+            font-size: 3.5vw;
+            padding: 2vw 3vw;
+            border-radius: 3vw;
+            flex-shrink: 0;
+            min-width: 60px;
+        }
+
+        .clear-btn {
+            font-size: 3vw;
+            padding: 1.5vw 3vw;
+        }
+
+        .chat-messages {
+            padding: 3vw;
+        }
+
+        .chat-input-area {
+            padding: 2vw;
+            gap: 2vw;
+            min-width: 0;
+        }
+
+        .thinking-message {
+            font-size: 1.2em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .chat-input-area {
+            flex-wrap: wrap;
+        }
+
+        #chatbot-input {
+            width: 100%;
+            margin-bottom: 1vw;
+        }
+
+        .send-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+    // CHANGE 1: Updated to Supabase Edge Function (Claude-powered Grummel)
+    const API_URL = "https://gthubyikarkgxxppaign.supabase.co/functions/v1/grummel";
+
+    let messages = JSON.parse(localStorage.getItem("chatbot_messages") || "[]");
+    let currentTalkAnimation = 1; // Tracks which talk animation to use next (1 or 2)
+
+    // DOM elements
+    const chatModal = document.getElementById("chat-modal");
+    const closeChatBtn = document.getElementById("close-chat-btn");
+    const chatMessages = document.getElementById("chatbot-messages");
+    const chatInput = document.getElementById("chatbot-input");
+    const chatSend = document.getElementById("chatbot-send");
+    const chatClear = document.getElementById("chatbot-clear");
+
+    // Avatar video management
+    function switchAvatarVideo(targetClass, shouldLoop = false) {
+        console.log(`Switching to video: ${targetClass}, loop: ${shouldLoop}`);
+        // Handle floating avatar videos
+        const floatingVideos = document.querySelectorAll('.floating-avatar .avatar-video');
+        const targetFloatingVideo = document.querySelector(`.floating-avatar .${targetClass}`);
+
+        // Handle header avatar videos
+        const headerVideos = document.querySelectorAll('.grummel-avatar-container .header-avatar-video');
+        const targetHeaderVideo = document.querySelector(`.grummel-avatar-container .${targetClass}`);
+
+        function switchVideoSet(videos, targetVideo) {
+            if (!targetVideo) return;
+
+            // Prepare new video FIRST
+            targetVideo.currentTime = 0;
+            targetVideo.loop = shouldLoop;
+            targetVideo.classList.add('active'); // Make visible first
+            targetVideo.play().catch(e => console.log('Video play failed:', e));
+
+            // THEN hide all others
+            videos.forEach(video => {
+                if (video !== targetVideo) {
+                    video.classList.remove('active');
+                    video.pause();
+                }
+            });
+        }
+
+        // Switch both sets
+        switchVideoSet(floatingVideos, targetFloatingVideo);
+        switchVideoSet(headerVideos, targetHeaderVideo);
+
+        // Set up return to idle for non-looping videos (only if not manually looping)
+        console.log('Hand video ended, switching to idle');
+        if (targetClass !== 'idle-video' && !shouldLoop) {
+            function handleVideoEnd() {
+                console.log('Hand video ended, switching to idle');
+                switchAvatarVideo('idle-video', true);
+                if (targetFloatingVideo) {
+                    targetFloatingVideo.removeEventListener('ended', handleVideoEnd);
+                }
+                if (targetHeaderVideo) {
+                    targetHeaderVideo.removeEventListener('ended', handleVideoEnd);
+                }
+            }
+
+            if (targetFloatingVideo) {
+                targetFloatingVideo.addEventListener('ended', handleVideoEnd);
+            }
+            if (targetHeaderVideo) {
+                targetHeaderVideo.addEventListener('ended', handleVideoEnd);
+            }
+        }
+    }
+
+    function playHandAnimation() {
+        switchAvatarVideo('hand-video');
+    }
+
+    function playTalkAnimation() {
+        const talkClass = `talk${currentTalkAnimation}-video`;
+        switchAvatarVideo(talkClass, true); // Loop the talk animation
+        // Cycle between talk1 and talk2 for next time
+        currentTalkAnimation = currentTalkAnimation === 1 ? 2 : 1;
+    }
+
+    function stopTalkAnimation() {
+        // Get current talk video
+        const currentTalkClass = currentTalkAnimation === 1 ? 'talk2-video' : 'talk1-video'; // Previous one that's playing
+        const floatingVideo = document.querySelector(`.floating-avatar .${currentTalkClass}`);
+        const headerVideo = document.querySelector(`.grummel-avatar-container .${currentTalkClass}`);
+
+        function stopVideoGracefully(video) {
+            if (!video || !video.classList.contains('active')) return;
+
+            // Stop looping but let current playthrough finish
+            video.loop = false;
+
+            // When this instance ends, switch to idle
+            function handleFinalEnd() {
+                switchAvatarVideo('idle-video', true);
+                video.removeEventListener('ended', handleFinalEnd);
+            }
+
+            video.addEventListener('ended', handleFinalEnd);
+        }
+
+        stopVideoGracefully(floatingVideo);
+        stopVideoGracefully(headerVideo);
+    }
+
+    // Global function to open chat - can be called from Webflow interactions
+    window.openAIChat = function () {
+        if (chatModal) {
+            chatModal.style.display = "flex";
+            setTimeout(() => {
+                // Use switchAvatarVideo to properly set up event listeners
+                switchAvatarVideo('hand-video', false);
+
+                // Add 1 second delay before playing
+                setTimeout(() => {
+                    const floatingHandVideo = document.querySelector('.floating-avatar .hand-video');
+                    const headerHandVideo = document.querySelector('.grummel-avatar-container .hand-video');
+
+                    if (floatingHandVideo) floatingHandVideo.play();
+                    if (headerHandVideo) headerHandVideo.play();
+                }, 500);
+            }, 300);
+            renderMessages();
+        }
+    }
+
+    // Function to close chat
+    function closeChat() {
+        if (chatModal) {
+            chatModal.style.display = "none";
+        }
+    }
+
+    // Message rendering with typewriter effect
+    function addMessage(role, content, isError = false, isLive = false) {
+        if (!chatMessages) return;
+
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${role}${isError ? ' system' : ''}`;
+
+        // Clean the content if it's from the assistant - remove brackets and surrounding spaces
+        const cleanContent = role === 'assistant' ? content.replace(/\s*【[^】]*】\s*/g, '') : content;
+
+        if (role === 'assistant' && !isError && isLive) {
+            // Start with empty content for typewriter effect (only for live messages)
+            messageDiv.textContent = '';
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Start talk animation
+            playTalkAnimation();
+
+            // Typewriter effect
+            let currentIndex = 0;
+            const typeSpeed = 20; // milliseconds per character
+
+            function typeNextCharacter() {
+                if (currentIndex < cleanContent.length) {
+                    messageDiv.textContent += cleanContent[currentIndex];
+                    currentIndex++;
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    setTimeout(typeNextCharacter, typeSpeed);
+                } else {
+                    // Message complete, stop talk animation gracefully
+                    stopTalkAnimation();
+                }
+            }
+
+            typeNextCharacter();
+        } else {
+            // For user messages, system messages, and saved messages, show immediately
+            messageDiv.textContent = cleanContent;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    }
+
+    function renderMessages() {
+        if (!chatMessages) return;
+        chatMessages.innerHTML = "";
+        messages.forEach(m => {
+            addMessage(m.role, m.content);
+        });
+    }
+
+    // Loading state with thinking dots
+    function setLoading(isLoading) {
+        if (!chatSend || !chatInput || !chatMessages) return;
+
+        if (isLoading) {
+            // Add thinking dots message
+            const thinkingDiv = document.createElement("div");
+            thinkingDiv.className = "message assistant thinking-message";
+            thinkingDiv.id = "thinking-dots";
+            thinkingDiv.textContent = ".";
+
+            chatMessages.appendChild(thinkingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Start dots animation
+            let dotCount = 1;
+            const dotsInterval = setInterval(() => {
+                if (document.getElementById("thinking-dots")) {
+                    dotCount = (dotCount % 3) + 1;
+                    thinkingDiv.textContent = ".".repeat(dotCount);
+                } else {
+                    clearInterval(dotsInterval);
+                }
+            }, 500);
+
+            // Store interval ID for cleanup
+            thinkingDiv.dataset.intervalId = dotsInterval;
+        } else {
+            // Remove thinking dots message
+            const thinkingMessage = document.getElementById("thinking-dots");
+            if (thinkingMessage) {
+                const intervalId = thinkingMessage.dataset.intervalId;
+                if (intervalId) {
+                    clearInterval(parseInt(intervalId));
+                }
+                thinkingMessage.remove();
+            }
+        }
+
+        chatSend.disabled = isLoading;
+        chatInput.disabled = isLoading;
+    }
+
+    // Send message function
+    async function sendMessage() {
+        if (!chatInput) return;
+
+        const userMessage = chatInput.value.trim();
+        if (!userMessage) return;
+
+        messages.push({ role: "user", content: userMessage });
+        addMessage("user", userMessage);
+        chatInput.value = "";
+
+        setLoading(true);
+
+        try {
+            // CHANGE 2: Send history array instead of thread_id
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: userMessage,
+                    history: messages.slice(0, -1).slice(-10).map(m => ({
+                        role: m.role,
+                        content: m.content
+                    }))
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            // CHANGE 2 (cont): Use data.reply instead of data.response + thread_id
+            const cleanedResponse = data.reply;
+            messages.push({ role: "assistant", content: cleanedResponse });
+            addMessage("assistant", cleanedResponse, false, true); // isLive = true for new messages
+
+            localStorage.setItem("chatbot_messages", JSON.stringify(messages));
+
+        } catch (error) {
+            console.error('Chat error:', error);
+            addMessage("system", `Error: ${error.message}`, true);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Clear chat function
+    function clearChat() {
+        if (confirm("Are you sure you want to clear the chat history?")) {
+            // CHANGE 3: Removed threadId and chatbot_thread_id (no longer needed)
+            messages = [];
+            localStorage.removeItem("chatbot_messages");
+            renderMessages();
+        }
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event listeners with null checks
+        if (closeChatBtn) {
+            closeChatBtn.addEventListener('click', closeChat);
+        }
+
+        if (chatSend) {
+            chatSend.addEventListener('click', sendMessage);
+        }
+
+        if (chatClear) {
+            chatClear.addEventListener('click', clearChat);
+        }
+
+        // Enter key support
+        if (chatInput) {
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatModal && chatModal.style.display === 'flex') {
+                closeChat();
+            }
+        });
+
+        // Connect to button with ID 'chat-button' (if it exists)
+        const chatButton = document.getElementById('chat-button');
+        if (chatButton) {
+            chatButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                openAIChat();
+            });
+        }
+
+        // Make openAIChat available globally for Webflow interactions
+        window.openChat = window.openAIChat;
+    });
+</script>
