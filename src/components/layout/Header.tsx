@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/timeline", label: "Timeline" },
   { href: "/characters", label: "Characters" },
+  { href: "/stories", label: "Chronicles" },
   { href: "/realms", label: "Realms & Peoples" },
   { href: "/codex", label: "Codex" },
-  { href: "/armory", label: "Armory" },
-  { href: "/stories", label: "Chronicles" },
+  // { href: "/armory", label: "Armory" },  // hidden until armory lore is complete
 ];
 
 export function Header() {

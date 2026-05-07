@@ -114,10 +114,10 @@ const CharacterDetail = () => {
           <div className="absolute top-24 left-6 z-10">
             <Link
               to="/characters"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-2 text-foreground/80 hover:text-primary transition-colors"
             >
-              <ArrowLeft size={16} />
-              <span>Back to Characters</span>
+              <ArrowLeft size={20} />
+              <span className="font-display text-sm tracking-wider">Back to Characters</span>
             </Link>
           </div>
 

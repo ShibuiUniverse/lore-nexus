@@ -38,7 +38,7 @@ export function CharacterCard({ character, index }: CharacterCardProps) {
         <img
           src={character.image_url}
           alt={character.name}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-card via-secondary to-card" />
