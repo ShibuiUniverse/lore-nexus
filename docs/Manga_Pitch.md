@@ -68,10 +68,10 @@ last-standing warrior of the direct bloodline of Sensei Murakai is
 16-year-old Emerald, the adventurous and rebellious daughter of Sensei
 Lux who's avoided responsibility since the day she lost her Farther.
 
-After a surprise attack from the Dark Ones led by Kuso, a former Light
+After a surprise attack from the Dark Ones led by Kage, a former Light
 Walker Clan turned Dark, the High Counsel decides that Emerald must
 leave to collect all four gemstones and seek the Eternal Blade. With
-Kuso and the Dark Ones close on their tracks, Emerald and Kilian set off
+Kage and the Dark Ones close on their tracks, Emerald and Kilian set off
 to gather the gemstones. Their first stop leads them to the Upper
 Mountains to seek the Montes Giants, where many have fallen in seeking
 their divine wisdom.
@@ -82,7 +82,7 @@ and Keeper of the Emerald of Wisdom, accompany them on their journey.
 Emerald, Kilian, and their newfound friend Grummel descend the Upper
 Mountains only to be ambushed by a surprise attack from the Dark Ones.
 They cut through the Kubu forest. The Kubu People, protectors of the
-Almighty's creation, help them narrowly escape Kuso and the Dark Ones.
+Almighty's creation, help them narrowly escape Kage and the Dark Ones.
 After escaping through the Kubu Forest, Emerald and her crew seek
 answers in Fukushu Bay.
 
@@ -95,7 +95,7 @@ Antonia her quest and what she has set out to complete. Antonia, feeling
 the pull of the Almighty's Power on Emerald, reveals that she holds the
 Baransu Ruby and the Eternal Blade. Antonia gifts the Ruby and the Blade
 to Emerald and blesses her on her quest to move forward. This only
-leaves two more gemstones to collect: the Pearl of Wisdom held by the
+leaves two more gemstones to collect: the Pearl of Honor held by the
 Lacus people and the Almighty Diamond that is lost with the staff of the
 Almighty.\
 \
@@ -103,7 +103,7 @@ As all seems to be falling into place for Emerald and her crew to finish
 their quest and fulfill the prophecy, disaster strikes. Kilian tries to
 reveal the truth of a secret he keeps and his affection for Emerald, but
 as he does, an item falls from his pocket: a dark one's tracker whistle.
-The reason they had been tracked so easily by the dark ones and Kuso was
+The reason they had been tracked so easily by the dark ones and Kage was
 because Kilian had been secretly leading them on. Emerald is crushed.
 She had fallen for Kilian, but he had already betrayed them. Antonia and
 the Pirates of Fukushu make Kilian walk the plank and leave him stranded
@@ -118,7 +118,7 @@ meets the two at the shore of the lake. Emerald tells her of their
 journey, the new prophecy, and the curse. Queen Aurelia already knows of
 their journey and that she has been waiting for their arrival, although
 she was unsure they would even make it. She gives Emerald her blessing
-to take the Pearl of Wisdom, but mentions that it is only bestowed upon
+to take the Pearl of Honor, but mentions that it is only bestowed upon
 those who can pass the test and win the favor of the Pearl's guardian at
 the bottom of Lake Shamakai.
 
@@ -134,7 +134,7 @@ pivotal decision -- to leave the forest to save a mysterious voice
 (Kilian) yelling for help, which is greatly forbidden, or let the savage
 Equinoi tear him apart. Her decision to save Kilian embarks her on a new
 destiny she reluctantly takes, to gather the Almighty Gemstones, the Key
-to Eternity Blade, and try to break the curse of the Soulless
+to Eternal Blade, and try to break the curse of the Soulless
 Citadel.]{.mark}
 
 **Kilian (Tenshi Clan) -** Coming from the Prophets in the Desert of
@@ -215,7 +215,7 @@ height="3.6527777777777777in"}**\
 Kilian\
 **![](media/image6.jpg){width="6.5in" height="4.458333333333333in"}
 
-**Kuso**
+**Kage**
 
 ![](media/image2.png){width="5.244792213473316in"
 height="7.976454505686789in"}

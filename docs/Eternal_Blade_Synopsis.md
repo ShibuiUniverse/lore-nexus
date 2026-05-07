@@ -25,7 +25,7 @@ her surprise, the Light Walker from the prophecy is her. Still haunted
 by her father's curse and afraid she doesn't have what it takes,
 Emerald resists the call. But a surprise attack on the hidden Light
 Walker clan in the Forbidden Forest forces Emerald and Kilian into
-action - they must find the gemstones before Kuso, a Light Walker turned
+action - they must find the gemstones before Kage, a Light Walker turned
 dark, captures them to use the Blade to free Khaonai - the betrayer of
 the Almighty.
 
@@ -33,7 +33,7 @@ The quest leads Emerald and Kilian to the Upper Mountains to seek the
 Montes Giants and the Emerald of Wisdom they hold. They find favor with
 the Montes - answering their riddle well - and gain another to their
 party: Grummel, a small and humble giant who is the keeper of the
-Emerald. They descend the mountains no sooner than Kuso, and the Dark
+Emerald. They descend the mountains no sooner than Kage, and the Dark
 Ones ambush them. They narrowly escaped through a forest with the help
 of the Kubu people - protectors of the Almighty's creation.
 
@@ -44,14 +44,14 @@ Captain Antonia is the long-lost sister of her mother, Melea, she shares
 about the prophecy and her quest. Sensing the Almighty's power on
 Emerald, Antonia reveals that she is the Baransu Ruby's keeper and
 possesses the Eternal Blade. She blesses her niece and entrusts her with
-both. Now there are two to find: the Pearl of Wisdom held by the Lacus
+both. Now there are two to find: the Pearl of Honor held by the Lacus
 People and the Almighty Diamond lost with the Staff of The Almighty -
 but unknown by Emerald; the Dark Ones follow closely, ready to strike
 and seize the gems for their own.
 
 His affection having grown for Emerald, Kilian tries to reveal his
 secret to her - but before he can, she discovers the truth: Kilian had
-been leading the Dark Ones and Kuso to the party from the start. Emerald
+been leading the Dark Ones and Kage to the party from the start. Emerald
 is crushed. Antonia and the Pirates of Fukushu make Kilian walk the
 plank and leave him stranded in the middle of the Fukushu Sea. Antonia
 encourages Emerald on her journey and reminds her that even though her
@@ -59,7 +59,7 @@ heart is broken, she must continue this quest to save her father and
 break the curse.
 
 Emerald and Grummel go to Lake Shamakai to meet with the Lacus Queen,
-who gives Emerald her blessing to take the Pearl of Wisdom but warns
+who gives Emerald her blessing to take the Pearl of Honor but warns
 that it is only bestowed upon those who can pass the test and win the
 favor of its guardian, the giant Eel Takai, at the bottom of the Lake.
 The Queen gives Emerald a magical air bubble, and she reaches the bottom
@@ -80,7 +80,7 @@ Suddenly, the watery tomb shifts and rises from the depths and breaks
 forth into a lush garden - the Staff of the Almighty hovering in
 mid-air. Emerald grabs Almighty Diamond from that Staff, places it into
 the Eternal Blade with the other gems, and transports her to the gates
-of the Soulless Citadel - the gates won't budge! But now Kuso and the
+of the Soulless Citadel - the gates won't budge! But now Kage and the
 Dark Ones have found them at Lake Shamakai. It is as Grummel feared: a
 curse of this significance can only be broken with an equal sacrifice -
 one must sacrifice one's own life.
@@ -88,10 +88,10 @@ one must sacrifice one's own life.
 Resolved to sacrifice herself, Emerald reconnects with her father
 telepathically at the gates of the Citadel to tell him she will soon
 break the curse, then teleports back to Lake Shamakai to join Grummel in
-the fight - the Almighty's power surging through her. Kuso comes to
+the fight - the Almighty's power surging through her. Kage comes to
 take Emerald down - Kilian in tow with his hands tied. Killian explains
 that the Dark Ones are holding his family hostage and would kill them if
-he didn't help them, but Emerald is too hurt to believe him. Kuso gains
+he didn't help them, but Emerald is too hurt to believe him. Kage gains
 the upper hand and nearly kills Emerald, but Captain Antonia and the
 Pirates arrive - their ship floating majestically in the sky by the
 power of the Almighty. Now, the battle rages between our heroes and
@@ -102,16 +102,16 @@ through the Soulless Citadel and even in the battle around her in
 Baransu, but though it opens the Citadel gate, Sensei Lux and the
 warriors are still bound by their chains.
 
-Emerald is in shock - she was willing to sacrifice it all. Kuso shatters
+Emerald is in shock - she was willing to sacrifice it all. Kage shatters
 the Emerald of Wisdom with a dark curse and drives a blade into
 Antonia's side. Everything crumbling before her eyes, Emerald calls out
-to the Almighty as Kuso goes in for the kill. Emboldened, Killian breaks
-free and attacks Kuso to save Emerald - but Kuso cuts him down. Emerald
+to the Almighty as Kage goes in for the kill. Emboldened, Killian breaks
+free and attacks Kage to save Emerald - but Kage cuts him down. Emerald
 is devastated - she loved Killian in spite of his betrayal. Enraged, she
-and Kuso face off - their power matched. When Kuso summons the horde to
+and Kage face off - their power matched. When Kage summons the horde to
 finish Emerald, the Light Walker heir calls upon the Almighty Diamond as
 her father did many years ago against Tenebris---slamming the Blade's
-tip into the earth as the Almighty's power radiates and blasts Kuso and
+tip into the earth as the Almighty's power radiates and blasts Kage and
 the horde away. In that moment, two voices battle in Emerald's spirit -
 the Dark Whisper that tells her the prophecy was false - and the
 Almighty's that tells her that she was the Key all along.
@@ -143,7 +143,7 @@ Killian - thanking him for the chance to be with her father again.
 
 At the Bottom of Lake Shamakai\...
 
-Kuso slices her way out through the giant Eel, Takai, guarding the door
+Kage slices her way out through the giant Eel, Takai, guarding the door
 to Shadow Realm. She holds the Eternal Blade, which she picked up after
 the garden crumbled back into the Lake, and approaches the sealed door
 to realms. Finding its intended home in the center of the door, it

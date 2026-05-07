@@ -1,4 +1,4 @@
-# The Prophecy of the Eternity Blade
+# The Prophecy of the Eternal Blade
 
 **Background of the Blade's Creation:**
 

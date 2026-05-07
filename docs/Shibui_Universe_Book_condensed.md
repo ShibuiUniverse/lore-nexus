@@ -162,7 +162,7 @@ by her mother or grandmother sneaking out of the Light Walker Camp to explore th
 Forbidden Forrest. Just 16 years old, she is thrown into a pivotal decision – to leave the forest to 
 save a mysterious voice (Kilian) yelling for help, which is greatly forbidden, or let the savage 
 Equinoi tear him apart. Her decision to save Kilian embarks her on a new destiny she reluctantly 
-takes, to gather the Almighty Gemstones, the Key to Eternity Blade, and try to break the curse 
+takes, to gather the Almighty Gemstones, the Key to Eternal Blade, and try to break the curse 
 of the Soulless Citadel. 
 29 
 
@@ -1473,13 +1473,13 @@ signal if they need their help. Grummel and Emerald continue solo to reach Lake 
 meet with the Lacus Queen. Queen Aurelia meets the two at the shore of the lake. Emerald tells 
 her of their journey, the new prophecy, and the curse. Queen Aurelia knows of their voyage and 
 has been waiting for their arrival, although she is unsure they would even make it. She gives 
-Emerald her blessing to take the Pearl of Wisdom but mentions that it is only bestowed upon 
+Emerald her blessing to take the Pearl of Honor but mentions that it is only bestowed upon 
 those who can pass the test and win the favor of the guardian, Takai, at the bottom of Lake 
 Shamakai. 
 Queen Auralia bestows Emerald with a magic air bubble to reach the crevice of despair at the 
 bottom of the lake. Emerald's fear of water begins to return, but Grummel encourages her to 
 take the leap. As Emerald reaches the bottom of the crevis and sees the giant clam holding the 
-Pearl of Wisdom, Takai begins to circle her. He reveals she must face her deepest fear to 
+Pearl of Honor, Takai begins to circle her. He reveals she must face her deepest fear to 
 retrieve the Pearl as he pops her air bubble. She panics as she slowly loses all of her oxygen 
 and tries to resurface but fails as she drowns and sinks back to the bottom. Sensing the danger, 
 Grummel leaps into the water and immediately sinks to the bottom. Grummel, summoning the 
@@ -1715,7 +1715,7 @@ Emerald asks her dad what happened to the men in the Citadel and where all the s
 different clothes the men were wearing came from. Sensei Lux laughs and says, that's too long 
 of a story for tonight, my dear. 
 At the bottom of Lake Shamakai, we see the Giant Eel cut in half, its blood filling the water. 
-Kage emerges through the two parts of the eel. She holds the Eternity Blade. Now, at the 
+Kage emerges through the two parts of the eel. She holds the Eternal Blade. Now, at the 
 guarded doors to the Shadow Realm. She slays the guarding Lacus warriors and gets to the 
 sealed realm door. She holds the blade up in front of the door, and like a magnet, it launches 
 from out of her grip and into the center of the sealed door. The blade begins glowing bright red, 

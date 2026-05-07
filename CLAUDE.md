@@ -3,7 +3,7 @@
 ## PROJECT OVERVIEW
 The Lorekeeper is a web-based lore encyclopedia for the Shibui Universe — an interconnected Manga, Anime, and Gaming IP created by James Fazio. This app lets fans explore the entire universe: characters, timeline, locations, artifacts, prophecies, stories, and peoples.
 
-**Long-term destination:** `lorekeeper.shibuiuniverse.com`
+**Long-term destination:** `shibuiuniverse.com/lorekeeper` (path-based via Cloudflare Worker reverse proxy — decided 2026-05-04 for SEO consolidation; main marketing site stays on Webflow at the root, Worker routes `/lorekeeper/*` to the React app's host)
 
 ## TECH STACK
 - **Frontend:** React 18 + TypeScript + Vite
@@ -137,7 +137,7 @@ All Shibui Universe lore documents are in the `/docs` folder as markdown files. 
 - **Vi** — Energetic, enthusiastic ("Ohhhhhh, we are soooo BACK!!!")
 - **Sensei Lux** — Wise but humorous mentor ("Are you a rice guy or a stew guy?")
 - **Khaonai** — The great betrayer, created Dark Magic
-- **Sensei Murkai** — Original Light Walker leader, made the vow
+- **Sensei Murakai** — Original Light Walker leader, made the vow
 - **Captain Kaito** — Pirate captain, central to Pirates of Fukushu storyline
 - **Tenebris** — Major antagonist, dark force
 

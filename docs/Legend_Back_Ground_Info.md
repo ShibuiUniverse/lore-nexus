@@ -32,13 +32,13 @@
     > originally made just to depict that the men who try to wield a
     > blade turn to stone after the curse. We could make a cool story
     > about him. Possibly to save someone's life, he grabs a blade to
-    > keep it out of the hands of someone else, maybe when Kuso turned
+    > keep it out of the hands of someone else, maybe when Kage turned
     > bad? Cost him his life, but it was worth [Cool - I like it! Could
-    > you remind me about this storyline? Kuso turning bad?  (and remind
-    > me pretty please who Kuso is?)]{.comment-start id="0"
+    > you remind me about this storyline? Kage turning bad?  (and remind
+    > me pretty please who Kage is?)]{.comment-start id="0"
     > author="Deleted user" date="2023-08-19T01:45:06Z"}[Sorry Nikki! I
     > don't know why I didn't see these! \
-    > So Kuso, She is the main baddie in the screenplay. she is the one
+    > So Kage, She is the main baddie in the screenplay. she is the one
     > constantly chasing emerald, she is the one who forced Kilian to
     > mislead Emerald. She would be the current leader of the Dark Ones
     > after Tenebris is gone basically. \
@@ -104,7 +104,7 @@ Chapter 2: Women Warriors**
 4.  **Antonia** - Melea's Aunt and keeper of the Baransu Ruby (possibly
     > Melea's Sister now)
 
-5.  **Kuso** - Light Walker turned to Dark one by the Dark Whisper.
+5.  **Kage** - Light Walker turned to Dark one by the Dark Whisper.
     > After her father was taken to the Soulless Citadel, her mother
     > died of illness. The Whisper got into her head - planting lies
     > about the Almighty - How could he let this happen to you? If he
@@ -122,7 +122,7 @@ Chapter 2: Women Warriors**
 
 7.  **Dark Tracker** Known as "Tracker" - Along with her beast, she can
     > track any Women Warrior seeking the Staff of the Almighty. She is
-    > Kuso's right-wing - Relentlessly pursuing Emerald on the first
+    > Kage's right-wing - Relentlessly pursuing Emerald on the first
     > Screenplay.
 
 8.  **Fortifina** - a legendary warrior and Hogo-Sha, she's not one you
