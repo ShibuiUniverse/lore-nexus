@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Dark Whisper animations ───────────────────────────────────────────────── */
+
+/* Whole whisper drifts upward like smoke rising */
+@keyframes whisperRise {
+  from { transform: translateY(0px);   }
+  to   { transform: translateY(-28px); }
+}
+
+/* Each character bobs independently — stagger via animationDelay */
+@keyframes whisperChar {
+  0%   { transform: translateY(0px)  translateX(0px)   rotate(0deg);   }
+  100% { transform: translateY(-6px) translateX(0.8px) rotate(0.5deg); }
+}
+
 /* The Lorekeeper - SHIBUI! Inspired Design System
    Cinematic, dark, with aged parchment textures and bold red accents
 */
