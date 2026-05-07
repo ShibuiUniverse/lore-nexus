@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Local image staging — not committed
+images-to-upload/
+
+# Supabase CLI local state
+supabase/.temp/
