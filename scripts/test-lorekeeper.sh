@@ -10,6 +10,7 @@ ask() {
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   curl -s -X POST "$URL" \
     -H 'Content-Type: application/json' \
+    -H 'Origin: http://localhost:8080' \
     -d "{\"message\":\"$question\",\"history\":[]}" \
     | python3 -c "import sys,json; print(json.load(sys.stdin).get('reply','ERROR'))"
   echo ""
