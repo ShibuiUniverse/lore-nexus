@@ -48,8 +48,12 @@ export function CinematicLoader({ onComplete }: Props) {
   const enter = useCallback(() => {
     setPhase((p) => (p >= 6 ? p : 6));
     stopMusic(300);      // fast fade with the slash
+    // Hand off to ambient site music once the intro has cleared
+    setTimeout(() => {
+      playMusic("/audio/whispers-of-baransu.mp3", { loop: true, volume: 0.45, fadeInMs: 1500 });
+    }, 350);
     setTimeout(onComplete, EXIT_DURATION_MS);
-  }, [onComplete, stopMusic]);
+  }, [onComplete, stopMusic, playMusic]);
 
   const beginShow = useCallback(() => {
     prewarmAudio();
@@ -66,6 +70,7 @@ export function CinematicLoader({ onComplete }: Props) {
   // Splash fades in on mount + start downloading the music file in the background
   useEffect(() => {
     preloadMusic("/audio/intro.mp3");
+    preloadMusic("/audio/whispers-of-baransu.mp3");
     let raf2 = 0;
     const raf1 = requestAnimationFrame(() => {
       raf2 = requestAnimationFrame(() => setSplashReady(true));
