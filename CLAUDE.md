@@ -3,7 +3,7 @@
 ## PROJECT OVERVIEW
 The Lorekeeper is a web-based lore encyclopedia for the Shibui Universe — an interconnected Manga, Anime, and Gaming IP created by James Fazio. This app lets fans explore the entire universe: characters, timeline, locations, artifacts, prophecies, stories, and peoples.
 
-**Long-term destination:** `shibuiuniverse.com/lorekeeper` (path-based via Cloudflare Worker reverse proxy — decided 2026-05-04 for SEO consolidation; main marketing site stays on Webflow at the root, Worker routes `/lorekeeper/*` to the React app's host)
+**Live at:** `https://lorekeeper.shibuiuniverse.com` (subdomain via Cloudflare Pages, since 2026-05-13). Path-based was attempted first but the apex `shibuiuniverse.com` is grey-cloud (Webflow's recommended setup) so the Worker route never fired — pivoted to the subdomain to avoid risking the existing Webflow site. The `cloudflare-worker/` folder is parked but unused.
 
 ## TECH STACK
 - **Frontend:** React 18 + TypeScript + Vite
@@ -171,7 +171,7 @@ James's voice is casual, raw, honest — never corporate. When writing lore cont
 3. Import existing data from CSV exports (if available in project root)
 4. Populate lore content from /docs reference files
 5. Polish design and add missing features
-6. Deploy to lorekeeper.shibuiuniverse.com via Cloudflare Pages
+6. ✅ Deployed to lorekeeper.shibuiuniverse.com via Cloudflare Pages (2026-05-13)
 
 ## COMMANDS
 ```bash
