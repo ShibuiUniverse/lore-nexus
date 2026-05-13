@@ -199,6 +199,32 @@ The Pearl of Honor rests with the Lacus at the bottom of this lake.`,
     },
   },
   {
+    table: "timeline_events",
+    id: "bbbbbbbb-0021-0021-0021-000000000021",
+    label: "Young Antonia Leaves Zillarnia (timeline event)",
+    fields: {
+      // Removes "Melea's sister Antonia" / "Her sister Melea" — the sister
+      // relation is one of James's protected spoilers. The Vegas/Antonia
+      // backstory itself is fine (already public via Vegas's character entry).
+      description: "Antonia fell in love with the wrong person. Vegas was charming and mysterious and from somewhere no one could quite place. Her family had concerns. She didn't listen.",
+      full_content: `Every family has a story like this.
+
+The one person everyone could see was trouble, the one person who was clearly there for the wrong reasons, and the one family member who was absolutely certain they were different. That the love was real. That everyone else was wrong.
+
+Antonia was that person.
+
+Vegas arrived in Zillarnia and nobody could quite figure out where he came from. He was charming. He was attentive. He paid attention to Antonia in a way that felt like being the only person in a room. Her family had a bad feeling about him from day one. They said as much.
+
+Antonia married him.
+
+She wasn't stupid. She wasn't weak. She was a young woman who believed in something and she paid the price that people pay when they believe the wrong thing about someone.
+
+Vegas would reveal what he actually was. It just took time.
+
+And when it happened, the fallout would send Antonia on a path that eventually put her exactly where the Almighty needed her to be.`,
+    },
+  },
+  {
     table: "prophecies",
     id: "a0e891a1-931d-4191-bdce-fafffab54ef3",
     label: "The Curse of the Soulless Citadel",
