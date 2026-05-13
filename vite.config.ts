@@ -2,11 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// Production builds are served at shibuiuniverse.com/lorekeeper/* via a
-// Cloudflare Worker reverse proxy → Cloudflare Pages. Dev runs at the root
-// of localhost so the workflow stays unchanged.
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/lorekeeper/" : "/",
+// Production is served at lorekeeper.shibuiuniverse.com via Cloudflare
+// Pages (custom domain). Vite default base of "/" works in both dev and prod.
+export default defineConfig({
   server: {
     host: "::",
     port: 8080,
@@ -20,4 +18,4 @@ export default defineConfig(({ command }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-}));
+});
