@@ -68,7 +68,7 @@ export const StoryCard = ({ story }: StoryCardProps) => {
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-500" />
 
-        {/* Play button for trailers */}
+        {/* Play button for trailer-type stories */}
         {isTrailer && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/30">
@@ -84,6 +84,14 @@ export const StoryCard = ({ story }: StoryCardProps) => {
         >
           {typeLabel}
         </Badge>
+
+        {/* Trailer tag — when a non-trailer chronicle ALSO has a video */}
+        {!isTrailer && story.video_url && (
+          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/90 backdrop-blur-sm shadow-lg shadow-primary/30">
+            <Play className="w-3 h-3 text-primary-foreground" fill="currentColor" />
+            <span className="text-[10px] font-display tracking-wider uppercase text-primary-foreground">Trailer</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
