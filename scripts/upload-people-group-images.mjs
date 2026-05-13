@@ -17,8 +17,10 @@ const SRC_DIR = "/Users/shibuilabs/projects/lore-nexus/images-to-upload/people_g
 const BUCKET  = "lore-images";
 
 const MANIFEST = [
+  { file: "darkones.png",             slug: "the-dark-ones",        peoples: ["The Dark Ones"] },
   { file: "Kubu People.jpeg",         slug: "kubu-people",          peoples: ["Kubu People"] },
   { file: "lacus.jpg",                slug: "lacus-people",         peoples: ["Lacus People"] },
+  { file: "light-walkers.png",        slug: "light-walker-clan",    peoples: ["Light Walker Clan"] },
   { file: "montes.jpg",               slug: "montes-giants",        peoples: ["Montes Giants"] },
   { file: "novus.jpg",                slug: "novus-people",         peoples: ["Novus People"] },
   { file: "pirates-fukushu.png",      slug: "pirates-of-fukushu",   peoples: ["Pirates of Fukushū"] },
