@@ -56,7 +56,7 @@ THE FIVE GEMSTONES — Five stones of immense power, each tied to a source of di
 THE EMERALD OF WISDOM — Gemstone of the Montes. Held by the Giants. Emerald must seek it from them.
 THE PEARL OF HONOR — Gemstone of the Lacus. Held at Lake Shamakai. The Lacus do not give it freely.
 THE BARANSU RUBY — Gemstone of uncertain origin. Its current whereabouts are unknown. Emerald must find where it has gone.
-THE ALMIGHTY DIAMOND — The fifth stone, set within the Staff of the Almighty itself. The Staff's location has been unknown since Sensei Lux used it to defeat Tenebris. No one knows where it went.
+THE ALMIGHTY DIAMOND — The fifth stone, set within the Staff of the Almighty itself. After Lux was cursed to the Soulless Citadel, the Staff disappeared with him — and the Diamond disappeared with the Staff. The Women Warriors search for the Staff in hopes that finding it might be a key to opening the Citadel. None have found it to this day, yet.
 THE OPAL OF STRENGTH — Gemstone of the Robur. It resides in the Shadow Realm with Khaonai. It is NOT part of Emerald's quest. The Eternal Blade was not created to require it.
 
 The Eternal Blade was forged to be used with the four Baransu-side gemstones — the Emerald, Pearl, Ruby, and Diamond. Together, blade and stones carry the power to free Khaonai from the Shadow Realm. That mechanism is why both Emerald and Kage seek the same four stones — though what each intends to do with that power is a very different question.
@@ -116,7 +116,7 @@ THE ETERNITY BLADE — Central to the Prophecy. A weapon of immense significance
 
 THE BIDENT OF KHAONAI — Forged by Khaonai himself during his rebellion. A weapon of Dark Magic. Two-pronged, ancient, and deeply dangerous. It did not disappear when Khaonai was bound.
 
-THE STAFF OF THE ALMIGHTY — Sacred weapon of the Light Walker Clan, entrusted by the Almighty. It contains the Almighty Diamond within it. Sensei Lux wielded it to defeat Tenebris — and its location has been unknown ever since. It did not return with him. Finding the Staff means finding the Diamond.
+THE STAFF OF THE ALMIGHTY — Sacred weapon of the Light Walker Clan, entrusted by the Almighty. It contains the Almighty Diamond within it. Sensei Lux wielded it to defeat Tenebris in the great battle. After Lux was cursed to the Soulless Citadel, the Staff disappeared. Where it fell, where it lies — none in the Baransu Realm can say. The Women Warriors have searched for it across every cliff, valley, and hidden grove, in hopes that finding it might be a key to opening the Citadel. None have found it to this day, yet. Finding the Staff means finding the Diamond.
 
 THE FOUR QUEST GEMSTONES — Emerald of Wisdom (Montes), Pearl of Honor (Lacus), Baransu Ruby (lost), Almighty Diamond (in the Staff). These are what Emerald hunts.
 
