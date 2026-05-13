@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { BookOpen, Play, Calendar } from "lucide-react";
+import { BookOpen, Play, Calendar, ChevronDown } from "lucide-react";
 
 interface Era {
   id: string;
@@ -45,10 +46,39 @@ export function TimelineFilters({
     trailer: { label: "Trailers", icon: <Play size={12} /> },
   };
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const activeCount =
+    (selectedEventType ? 1 : 0) +
+    (selectedCategory ? 1 : 0) +
+    (selectedEra ? 1 : 0);
+
   return (
     <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-6 py-4">
-        <div className="flex flex-col gap-4">
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setMobileOpen((o) => !o)}
+          className="md:hidden w-full flex items-center justify-between py-1 text-foreground"
+          aria-expanded={mobileOpen}
+        >
+          <span className="text-xs uppercase tracking-wider">
+            Filters
+            {activeCount > 0 && (
+              <span className="text-primary ml-2">· {activeCount} active</span>
+            )}
+          </span>
+          <ChevronDown
+            size={16}
+            className={cn("transition-transform duration-200", mobileOpen && "rotate-180")}
+          />
+        </button>
+
+        <div
+          className={cn(
+            "flex-col gap-4",
+            mobileOpen ? "flex mt-4" : "hidden md:flex",
+          )}
+        >
           {/* Event Type filters - Primary filter row */}
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs text-muted-foreground uppercase tracking-wider mr-2">

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Era {
@@ -23,10 +25,36 @@ export function CharacterFilters({
   onFactionChange,
   onEraChange,
 }: CharacterFiltersProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const activeCount = (selectedFaction ? 1 : 0) + (selectedEra ? 1 : 0);
+
   return (
     <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-6 py-4">
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+        {/* Mobile toggle — hidden at md+ where the filters are always visible */}
+        <button
+          onClick={() => setMobileOpen((o) => !o)}
+          className="md:hidden w-full flex items-center justify-between py-1 text-foreground"
+          aria-expanded={mobileOpen}
+        >
+          <span className="text-xs uppercase tracking-wider">
+            Filters
+            {activeCount > 0 && (
+              <span className="text-primary ml-2">· {activeCount} active</span>
+            )}
+          </span>
+          <ChevronDown
+            size={16}
+            className={cn("transition-transform duration-200", mobileOpen && "rotate-180")}
+          />
+        </button>
+
+        <div
+          className={cn(
+            "flex-col md:flex-row items-start md:items-center gap-4",
+            mobileOpen ? "flex mt-4" : "hidden md:flex",
+          )}
+        >
           {/* Faction filters */}
           {factions.length > 0 && (
             <div className="flex items-center gap-2 flex-wrap">
