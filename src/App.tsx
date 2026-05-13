@@ -36,13 +36,17 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Vite injects "/" in dev and "/lorekeeper/" in production builds; React Router
+// wants the basename without a trailing slash.
+const ROUTER_BASENAME = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const App = () => {
   // Loader plays every page load — it's a gateway to the lore, not an obstacle.
   // Internal SPA navigation doesn't remount App, so clicks between routes don't re-trigger.
   // Only admin paths skip it, since admin work shouldn't sit through the intro.
   const [loaderDone, setLoaderDone] = useState(() => {
     if (typeof window === "undefined") return true;
-    return window.location.pathname.startsWith("/admin");
+    return window.location.pathname.startsWith(`${ROUTER_BASENAME}/admin`);
   });
 
   const finishLoader = () => setLoaderDone(true);
@@ -54,7 +58,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename={ROUTER_BASENAME}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/timeline" element={<Timeline />} />

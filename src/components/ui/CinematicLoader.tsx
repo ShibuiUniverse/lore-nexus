@@ -1,5 +1,10 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { useAudio } from "@/contexts/AudioContext";
+import { asset } from "@/lib/asset";
+
+const INTRO_MUSIC    = asset("audio/intro.mp3");
+const WHISPERS_MUSIC = asset("audio/whispers-of-baransu.mp3");
+const LUX_VIDEO      = asset("videos/lux-blessing.mp4");
 
 // Phased reveal:
 //   1: 伝 begins fading in
@@ -50,7 +55,7 @@ export function CinematicLoader({ onComplete }: Props) {
     stopMusic(300);      // fast fade with the slash
     // Hand off to ambient site music once the intro has cleared
     setTimeout(() => {
-      playMusic("/audio/whispers-of-baransu.mp3", { loop: true, volume: 0.45, fadeInMs: 1500 });
+      playMusic(WHISPERS_MUSIC, { loop: true, volume: 0.45, fadeInMs: 1500 });
     }, 350);
     setTimeout(onComplete, EXIT_DURATION_MS);
   }, [onComplete, stopMusic, playMusic]);
@@ -59,7 +64,7 @@ export function CinematicLoader({ onComplete }: Props) {
     prewarmAudio();
     // Start music synchronously inside the click handler — preserves user activation
     // and avoids the extra frame of delay from useEffect commit.
-    playMusic("/audio/intro.mp3", { loop: true, volume: 0.7, fadeInMs: 0 });
+    playMusic(INTRO_MUSIC, { loop: true, volume: 0.7, fadeInMs: 0 });
     // Stop the splash video so it doesn't keep decoding in the background
     if (videoRef.current) {
       try { videoRef.current.pause(); } catch {}
@@ -69,8 +74,8 @@ export function CinematicLoader({ onComplete }: Props) {
 
   // Splash fades in on mount + start downloading the music file in the background
   useEffect(() => {
-    preloadMusic("/audio/intro.mp3");
-    preloadMusic("/audio/whispers-of-baransu.mp3");
+    preloadMusic(INTRO_MUSIC);
+    preloadMusic(WHISPERS_MUSIC);
     let raf2 = 0;
     const raf1 = requestAnimationFrame(() => {
       raf2 = requestAnimationFrame(() => setSplashReady(true));
@@ -242,7 +247,7 @@ export function CinematicLoader({ onComplete }: Props) {
             opacity: 0.85,
           }}
         >
-          <source src="/videos/lux-blessing.mp4" type="video/mp4" />
+          <source src={LUX_VIDEO} type="video/mp4" />
         </video>
 
         {/* Dark vignette over video for text legibility */}
