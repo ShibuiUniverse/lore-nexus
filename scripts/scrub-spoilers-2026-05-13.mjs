@@ -40,14 +40,19 @@ const updates = [
     id: "a699e777-f9b2-4bc3-a09b-25cd8bda349a",
     label: "Baransu Ruby",
     fields: {
-      lore_content: `The Baransu Ruby doesn't have the flashiest story of the five gemstones. It doesn't live on a mountain or at the bottom of a lake. For a long time, it lived on the open sea — wrapped in the coat of a pirate captain.
+      // Re-rewritten same day after James caught remaining spoilers: Antonia
+      // didn't peacefully inherit the Ruby (Vegas stole it from the Light
+      // Walkers), and Emerald has not yet met Antonia or received the Ruby —
+      // both are post-departure events. This version reflects only what is
+      // currently revealed in-story.
+      lore_content: `The Baransu Ruby doesn't have the flashiest story of the five gemstones. It doesn't live on a mountain or at the bottom of a lake. For a long time, it has lived on the open sea — wrapped in the coat of a pirate captain.
 
-Antonia carried it, having inherited it from a keeper before her. She knew what she held. She didn't advertise it. She kept the sea between herself and the people who would take it.
+Antonia carries it now. The Ruby came to her through loss — taken from the Light Walker Clan one night by Vegas, the man she had brought into her clan. What happened on the water afterward is hers alone. She survived. The Ruby survived with her. She has guarded it ever since.
 
-When Emerald and her crew ended up stranded on a rowboat in the middle of the Fukushū Sea — the way destiny always operates with terrible timing — they had a run-in with Antonia's crew. It wasn't until Emerald revealed who she was that Antonia lowered her guard. Sensing the Almighty's power on her, Antonia entrusted the Ruby to Emerald and gave her blessing.
+She knows what she holds. She doesn't advertise it. She keeps the sea between herself and the people who would take it.
 
 The Baransu Ruby is tied to the realm itself — some say those who hold it feel the pulse of Baransu in their chest, a reminder that the land is alive and the balance is always at stake.`,
-      origin_story: "Held in trust for generations among keepers loyal to the Almighty. Passed to Antonia — captain of the Pirates of Fukushū — who held it until she entrusted it to Emerald.",
+      origin_story: "Held in trust for generations among keepers loyal to the Almighty. Taken from the Light Walker Clan by Vegas in a desperate hope. Now carried by Antonia — captain of the Pirates of Fukushū — who guards it across the open sea.",
     },
   },
   {
