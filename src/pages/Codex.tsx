@@ -51,7 +51,7 @@ const Codex = () => {
     },
   });
 
-  const artifactTypes = ["weapon", "gemstone", "armor", "tome", "relic", "other"];
+  const artifactTypes = ["weapon", "gemstone", "relic", "other"];
   const prophecyStatuses = ["unfulfilled", "partially_fulfilled", "fulfilled", "disputed"];
 
   const isLoading = activeTab === "artifacts" ? artifactsLoading : propheciesLoading;
