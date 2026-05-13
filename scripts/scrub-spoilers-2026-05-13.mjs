@@ -1,20 +1,44 @@
-// Spoiler scrub on 2026-05-13. Removes from the public codex:
-//   1. That Antonia holds the Eternal Blade
-//   2. That Antonia is Melea's sister (and Emerald's aunt/niece relation)
-//   3. The Staff of the Almighty's location (Lake Shamakai / Murakai's tomb)
-//   4. The Almighty Diamond's location (same place as the Staff) and Emerald's
-//      post-departure discovery narrative (Lacus Queen riddle, uniting all 5
-//      stones, transport to the Citadel gates).
-//   5. Emerald of Wisdom: Emerald obtaining it from Grummel + Lake Shamakai
-//      battle where Kage shatters it (both unrevealed).
-//   6. Pearl of Honor: Emerald's drowning experience and her father reaching
-//      her from the Citadel. (Eel test description kept as public lore per
-//      option 3.)
+// Spoiler scrub on 2026-05-13. The story frontier as of this date: Emerald and
+// Kilian have just left the Forbidden Forest. They have not met the Kubu, the
+// Pirates, the Montes, the Lacus, or any character outside the Light Walker
+// village. They have not obtained any gemstone. The Eternal Blade is not yet
+// in their hands. Anything depicting Emerald (or Kilian) interacting with
+// people, places, or objects beyond the Forbidden Forest is a spoiler.
+//
+// This script removes from the public codex:
+//   1. Eternal Blade — that Antonia holds it.
+//   2. Baransu Ruby — that Antonia is Melea's sister, that Antonia gives the
+//      Ruby to Emerald, and that Emerald has met Antonia. Reframed: Vegas
+//      stole the Ruby from the Light Walkers; Antonia now protects it.
+//   3. Staff of the Almighty — its location (Lake Shamakai / Murakai's tomb)
+//      and Emerald's discovery of it. Reframed: vanished when Lux was cursed;
+//      Women Warriors search for it.
+//   4. Almighty Diamond — same Lake Shamakai location + entire Lacus Queen
+//      riddle / uniting the five stones / transport to Citadel gates spoiler.
+//      Reframed to mirror the Staff.
+//   5. Emerald of Wisdom — Emerald obtaining it from Grummel and the Lake
+//      Shamakai battle where Kage shatters it.
+//   6. Pearl of Honor — Emerald's drowning, her father reaching her from the
+//      Citadel, her second dive. (Eel/Lacus Queen test kept as public lore.)
+//   7. Sensei Lux backstory — drop "He connected with Emerald once, at the
+//      bottom of Lake Shamakai when she was drowning."
+//   8. Grummel backstory — drop the sentence implying Grummel met Emerald +
+//      the Kilian-not-happy-about-the-vow line implying Grummel joined the
+//      quest. (He had known Sensei Lux historically — that stays.)
+//   9. Lake Shamakai history — drop "Emerald had to earn the right to even
+//      speak to the Lacus Queen…" + fix the Pearl of Wisdom → Honor typo.
+//  10. The Curse of the Soulless Citadel prophecy interpretation — strip the
+//      ending spoiler dump (Emerald wields the Blade, Killian sacrifices,
+//      Lux reunites with daughter, Kage opens the Shadow Realm door).
+//      Replaced with a vaguer cliffhanger about Tenebris's still-unresolved
+//      second line.
 //
 // Kept as public lore (per James, 2026-05-13):
 //   - Antonia is the captain of the Pirates of Fukushū
-//   - Antonia holds the Baransu Ruby
-//   - The Lacus' Eel test for the Pearl of Honor (others have come before)
+//   - Antonia holds the Baransu Ruby (and how she came by it via Vegas)
+//   - The Lacus' Eel/Queen test for the Pearl of Honor (others have come)
+//   - Grummel is the keeper of the Emerald of Wisdom; he knew Sensei Lux
+//     historically
 //
 // Idempotent — re-running just re-sets the same values.
 
@@ -116,6 +140,80 @@ When Lux was cursed to the Soulless Citadel, the Staff disappeared with him — 
 
 The Diamond doesn't just belong to the Blade. It's always been the point. Everything else has been preparation.`,
       origin_story: "Kept by the Almighty himself and sealed inside the Staff of the Almighty. Entrusted to Sensei Murakai and the Light Walker Clan. Vanished with the Staff when Lux was cursed to the Soulless Citadel.",
+    },
+  },
+  {
+    table: "characters",
+    id: "78c8f7fc-31a9-413c-bf98-76699d3930b2",
+    label: "Sensei Lux",
+    fields: {
+      backstory: `Sensei Lux led the Light Walker Clan at the peak of its power.
+
+He was everything a leader was supposed to be: fierce in battle, calm under pressure, beloved by his people, and genuinely funny in a way that most powerful men are not. He did not use humor to deflect. He used it because he actually found the world amusing, including the parts that were trying to kill him.
+
+He married Melea young. Thirteen. They were inseparable. She was the better strategic mind, and he knew it and said so, which made her trust him completely.
+
+He had two children. Emerald, his firstborn daughter. Tika, his firstborn son. He loved then deeply and often sacrificed his time and health to be with them as much as he could while holding up his responsibilities in the realm.
+
+In the valley of Zillarnia, he led the Light Walker Clan against Tenebris and the dark horde. They won. The Staff of the Almighty blazed through the Forgotten Ones like fire through paper. Tenebris was cast to the Shadow Realm.
+
+Then came the curse.
+
+5,555 warriors disappeared. Lux among them.
+
+In the Soulless Citadel, he did what leaders do. He held his people together. He created the Arena so his men would have something to fight for every day. He identified the Dark Whisper's tactics and countered them. He kept making jokes because despair is a choice and he refused to make it.`,
+    },
+  },
+  {
+    table: "characters",
+    id: "9f024f7c-dd2e-4e26-b7bd-172b44a2b17b",
+    label: "Grummel",
+    fields: {
+      backstory: `The Montes were transformed into rock giants by the Almighty as a consequence of their pride. The relationship was simple: the greater the pride, the greater the giant. Some Montes stood forty feet tall and could not remember what humility felt like.
+
+Grummel stood seven feet.
+
+This was not celebrated among the Montes. Being small meant being humble, which meant you were admitting something the other giants did not want to admit. Grummel did not mind. He had watched the tall ones argue for centuries about things that did not matter and found the whole business exhausting.
+
+He was made keeper of the Emerald of Wisdom for reasons that surprised everyone except Grummel. Wisdom and humility tend to go together. The Almighty apparently noticed and so did Gothan, leader of the Montes. Grummel was at the Battle of Mount Turkan. He helped to push back Tenebris from the Realm. It broke something in him. Something he didn't ever want to unleash again. Violence.
+
+He took a vow, to never engage in war or combat again.
+
+Grummel loves nature deeply and it manifests in a beautiful childlike faith. He is old, undying and wise, but he still acts like a child in creation.
+
+He had known Sensei Lux from the days before the curse.`,
+    },
+  },
+  {
+    table: "locations",
+    id: "771ac907-7114-4cb0-9a44-1a6a0e254dbe",
+    label: "Lake Shamakai",
+    fields: {
+      history: `The Almighty placed the Lacus at Lake Shamakai for a reason. Beneath the surface of the water lies the door to the Shadow Realm. The Lacus guard it. They have guarded it since the beginning. Since Khaonai and the Robur were banished.
+
+The lake is vast and still in a way that makes people uneasy. The water is clear enough to see deep, but the depths keep going past where light reaches. The Shamakai Eel Dragon, Takai, hunts below the surface and helps to guard the Pearl of Honor. It is ancient and territorial and not something a reasonable person goes near.
+
+What makes Lake Shamakai majestic is the lava tubes that run beneath its water. Mixing fresh water with salt water and housing bother tropical and freshwater lifeforms in one place. A beautiful thing if you can muster yourself a visit.
+
+The Pearl of Honor rests with the Lacus at the bottom of this lake.`,
+    },
+  },
+  {
+    table: "prophecies",
+    id: "a0e891a1-931d-4191-bdce-fafffab54ef3",
+    label: "The Curse of the Soulless Citadel",
+    fields: {
+      interpretation: `Tenebris was moments from defeat when he spat these words. His horde was ash. The Staff of the Almighty had pushed back his darkness. He was going to the Shadow Realm and he knew it. So he did the only thing left to him — he cursed them.
+
+And it worked.
+
+Every warrior who fought in the Great Battle vanished into thin air moments after their victory, absorbed into the Soulless Citadel — a dark fortress hovering in the limbo between realms. Not dead. Not alive. Just... trapped. The curse didn't stop at the battlefield. Every firstborn son of the Light Walker Clan, on his 18th birthday, was taken next. Generation after generation, the Citadel filled with men who had done nothing wrong except be born into the wrong bloodline.
+
+5,555 souls in total. Some kept their hope. Others let the Dark Whisper in, and the Citadel's darkness slowly changed them — rage and despair rotting something inside them over the long years.
+
+For ten years after the curse, the Light Walker women rebuilt. They went into hiding in the Forbidden Forest, trained in secret, and tried to find a way to break it. None could, until the Double Prophecy surfaced and Emerald's path became clear.
+
+As for Tenebris's second line — "I shall return, my name shall rule these lands again" — that part of the curse remains unresolved. Tenebris is bound in the Shadow Realm. But darkness has a way of finding new vessels.`,
     },
   },
 ];
