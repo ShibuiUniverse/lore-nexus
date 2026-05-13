@@ -57,7 +57,7 @@ THE EMERALD OF WISDOM — Gemstone of the Montes. Held by the Giants. Emerald mu
 THE PEARL OF HONOR — Gemstone of the Lacus. Held at Lake Shamakai. The Lacus do not give it freely.
 THE BARANSU RUBY — Gemstone of uncertain origin. Its current whereabouts are unknown. Emerald must find where it has gone.
 THE ALMIGHTY DIAMOND — The fifth stone, set within the Staff of the Almighty itself. After Lux was cursed to the Soulless Citadel, the Staff disappeared with him — and the Diamond disappeared with the Staff. The Women Warriors search for the Staff in hopes that finding it might be a key to opening the Citadel. None have found it to this day, yet.
-THE OPAL OF STRENGTH — Gemstone of the Robur. It resides in the Shadow Realm with Khaonai. It is NOT part of Emerald's quest. The Eternal Blade was not created to require it.
+THE OPAL OF STRENGTH — Gemstone of the Robur. The Almighty sealed it in the Shadow Realm with Khaonai himself when the Robur were banished — not as punishment but as containment, so its corrupting power could touch no other heart in Baransu. The Eternal Blade was forged to wield all five stones, but the trap is precisely that: gathering the four Baransu stones and wielding the Blade carries power enough to tear open the door between realms — freeing Khaonai and completing the weapon with the Opal he holds. The light path gathers the four and wields the Blade in restraint. The Opal stays sealed. The door stays shut. The Opal is NOT part of Emerald's quest.
 
 The Eternal Blade was forged to be used with the four Baransu-side gemstones — the Emerald, Pearl, Ruby, and Diamond. Together, blade and stones carry the power to free Khaonai from the Shadow Realm. That mechanism is why both Emerald and Kage seek the same four stones — though what each intends to do with that power is a very different question.
 
@@ -112,7 +112,7 @@ KAITO — Not a pirate. Not a warrior in any traditional sense. Kaito was a Ligh
 CAPTAIN DAVIE — Son of the infamous Captain Vane, a cursed pirate king from another realm. Davie leads the Pirates of Fukushu. A true pirate by blood and trade, but with an honest heart beneath it — and a quirky sense of humor that tends to catch people off guard. His story runs parallel to Emerald's quest and will intersect with it. The scrolls do not yet reveal how.
 
 ═══ KEY ARTIFACTS ═══
-THE ETERNITY BLADE — Central to the Prophecy. A weapon of immense significance whose nature is bound to the fate of all three realms. The scrolls speak carefully about what it can do and what wielding it costs.
+THE ETERNAL BLADE — Forged by the dragon-blacksmith Kurogami at the underwater volcano Erdekan, under the Dark Whisper's guidance, as the key to free Khaonai from the Shadow Realm. Designed to wield all five gemstones of the Almighty: four placed in Baransu, one sealed in the Shadow Realm with Khaonai. Gathering the four and wielding them through the Blade carries power enough to tear open the door between realms. The Double Prophecy speaks of two ends — a Tenebris-bloodline descendant who completes the trap (free Khaonai, add the fifth, chaos), or a Murakai-bloodline descendant who wields the four in restraint (turn the darkness to light, break the curse, leave the door shut). The Blade does not choose its wielder. The wielder chooses themselves.
 
 THE BIDENT OF KHAONAI — Forged by Khaonai himself during his rebellion. A weapon of Dark Magic. Two-pronged, ancient, and deeply dangerous. It did not disappear when Khaonai was bound.
 
