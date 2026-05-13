@@ -179,6 +179,20 @@ const ProphecyDetail = () => {
             <span className="font-display text-xs tracking-[0.3em]">予言</span>
             <span className="w-12 h-px bg-current" />
           </div>
+
+          {/* Back to list */}
+          <div className="max-w-md mx-auto mt-16">
+            <Link
+              to="/codex"
+              className="flex items-center gap-3 p-5 bg-card/50 border border-border hover:border-primary/40 transition-all duration-300 group"
+            >
+              <ArrowLeft size={16} className="text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+              <div>
+                <p className="font-display text-xs tracking-[0.2em] text-primary uppercase mb-0.5">Browse</p>
+                <p className="font-display text-sm tracking-wide group-hover:text-primary transition-colors">The Codex</p>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </Layout>
