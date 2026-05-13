@@ -120,7 +120,7 @@ export const StoryModal = ({ story, open, onClose }: StoryModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="max-w-3xl max-h-[90vh] p-0 bg-card border-border/50 flex flex-col overflow-hidden">
+      <DialogContent hideClose className="max-w-3xl max-h-[90vh] p-0 bg-card border-border/50 flex flex-col overflow-hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>{story.title}</DialogTitle>
         </DialogHeader>

@@ -1,4 +1,4 @@
-import { ChevronDown, BookOpen, Play, Clock, Calendar } from "lucide-react";
+import { ChevronDown, BookOpen, Play, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -221,19 +221,6 @@ export function TimelineEvent({
                     position === "left" && "md:justify-end"
                   )}
                 >
-                  {/* Event badge - always show as base indicator */}
-                  <span
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider border rounded"
-                    style={{
-                      borderColor: accentColor,
-                      color: accentColor,
-                      backgroundColor: `${accentColor}10`,
-                    }}
-                  >
-                    <Calendar size={12} />
-                    Event
-                  </span>
-                  
                   {/* Lore badge */}
                   {hasLore && (
                     <button

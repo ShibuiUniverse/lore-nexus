@@ -234,7 +234,7 @@ export function LorekeeperChat() {
                 </span>
               )}
               <div
-                className="max-w-[88%] rounded-md px-3 py-2 font-body text-sm leading-relaxed"
+                className="max-w-[88%] rounded-md px-3 py-2 font-body text-sm leading-relaxed break-words whitespace-pre-wrap"
                 style={
                   msg.role === "user"
                     ? {
@@ -301,7 +301,8 @@ export function LorekeeperChat() {
             onKeyDown={handleKeyDown}
             placeholder="Ask of the scrolls..."
             disabled={isLoading}
-            className="flex-1 rounded-md px-3 py-2 text-sm font-body outline-none transition-colors disabled:opacity-50"
+            // text-base (16px) prevents iOS Safari auto-zoom on focus
+            className="flex-1 rounded-md px-3 py-2 text-base font-body outline-none transition-colors disabled:opacity-50"
             style={{
               background: "hsl(30 15% 10%)",
               border: "1px solid hsl(30 20% 20%)",

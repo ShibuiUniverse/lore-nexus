@@ -34,12 +34,17 @@ export function HeroSection() {
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
         </div>
 
-        {/* Title */}
-        <h1 
-          className="font-display text-5xl md:text-7xl lg:text-8xl tracking-[0.2em] text-foreground text-shadow-dramatic opacity-0 animate-fade-in"
+        {/* Title — SHIBUI! brand mark; the menu already says Lorekeeper */}
+        <h1
+          className="opacity-0 animate-fade-in m-0"
           style={{ animationDelay: "0.4s" }}
         >
-          THE LOREKEEPER
+          <img
+            src="/shibui-logo.png"
+            alt="Shibui!"
+            className="mx-auto w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl h-auto"
+          />
+          <span className="sr-only">The Lorekeeper</span>
         </h1>
 
         {/* Subtitle */}

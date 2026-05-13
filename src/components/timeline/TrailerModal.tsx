@@ -39,7 +39,7 @@ function getEmbedUrl(url: string): string {
 export function TrailerModal({ trailer, open, onClose }: TrailerModalProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="max-w-5xl p-0 overflow-hidden bg-card border-border">
+      <DialogContent hideClose className="max-w-5xl p-0 overflow-hidden bg-card border-border">
         <DialogHeader className="px-6 pt-6 pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">

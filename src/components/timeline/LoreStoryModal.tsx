@@ -69,7 +69,7 @@ export function LoreStoryModal({ story, open, onClose }: LoreStoryModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
-      <DialogContent className="max-w-4xl h-[90vh] p-0 overflow-hidden bg-card border-border flex flex-col">
+      <DialogContent hideClose className="max-w-4xl h-[90vh] p-0 overflow-hidden bg-card border-border flex flex-col">
         {/* Full scrollable content */}
         <ScrollArea className="flex-1 h-full">
           <div className="flex flex-col">
