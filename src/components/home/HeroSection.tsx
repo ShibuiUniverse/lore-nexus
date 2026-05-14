@@ -56,15 +56,18 @@ export function HeroSection() {
           <span className="sr-only">The Lorekeeper</span>
         </h1>
 
-        {/* Subtitle */}
-        <p 
-          className="mt-6 font-body text-lg md:text-xl text-muted-foreground tracking-wide max-w-2xl mx-auto opacity-0 animate-fade-in"
+        {/* Subtitle — the closing stanza of the Double Prophecy of the
+            Eternal Blade. Pulled straight from the in-world sacred text
+            so the homepage opens with actual canon, not a pitch line. */}
+        <blockquote
+          className="mt-8 font-body italic text-base md:text-lg text-foreground/80 max-w-md mx-auto leading-relaxed space-y-1 opacity-0 animate-fade-in"
           style={{ animationDelay: "0.6s" }}
         >
-          Explore the chronicles of a universe shaped by legend,
-          <br className="hidden md:block" />
-          where every story echoes through eternity.
-        </p>
+          <p>A blade forged in darkness.</p>
+          <p>Only the Chosen can harness.</p>
+          <p>By the Almighty&rsquo;s Power within.</p>
+          <p>Dark to Light, anew we begin.</p>
+        </blockquote>
 
         {/* CTA Button */}
         <div 
