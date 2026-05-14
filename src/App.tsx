@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -36,16 +36,30 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const INTRO_SEEN_KEY = "lorekeeper-intro-seen";
+
 const App = () => {
-  // Loader plays every page load — it's a gateway to the lore, not an obstacle.
-  // Internal SPA navigation doesn't remount App, so clicks between routes don't re-trigger.
-  // Only admin paths skip it, since admin work shouldn't sit through the intro.
+  // Loader plays for first-time visitors. Returning visitors get straight in
+  // (their browser already saw it, refreshes shouldn't punish them). Admin
+  // paths always skip. The Easter egg: clicking the SHIBUI! logo on the
+  // homepage dispatches a "lorekeeper:replay-intro" event which forces a
+  // fresh play — see HeroSection.tsx.
   const [loaderDone, setLoaderDone] = useState(() => {
     if (typeof window === "undefined") return true;
-    return window.location.pathname.startsWith("/admin");
+    if (window.location.pathname.startsWith("/admin")) return true;
+    try { return localStorage.getItem(INTRO_SEEN_KEY) === "1"; } catch { return false; }
   });
 
-  const finishLoader = () => setLoaderDone(true);
+  const finishLoader = () => {
+    setLoaderDone(true);
+    try { localStorage.setItem(INTRO_SEEN_KEY, "1"); } catch { /* private mode / quota */ }
+  };
+
+  useEffect(() => {
+    const onReplay = () => setLoaderDone(false);
+    window.addEventListener("lorekeeper:replay-intro", onReplay);
+    return () => window.removeEventListener("lorekeeper:replay-intro", onReplay);
+  }, []);
 
   return (
   <QueryClientProvider client={queryClient}>

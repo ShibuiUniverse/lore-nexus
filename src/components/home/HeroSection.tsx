@@ -34,16 +34,25 @@ export function HeroSection() {
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
         </div>
 
-        {/* Title — SHIBUI! brand mark; the menu already says Lorekeeper */}
+        {/* Title — SHIBUI! brand mark; the menu already says Lorekeeper.
+            Easter egg: clicking it replays the cinematic intro. */}
         <h1
           className="opacity-0 animate-fade-in m-0"
           style={{ animationDelay: "0.4s" }}
         >
-          <img
-            src="/shibui-logo.png"
-            alt="Shibui!"
-            className="mx-auto w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl h-auto"
-          />
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("lorekeeper:replay-intro"))}
+            className="block w-full bg-transparent border-0 p-0 cursor-pointer transition-transform duration-300 hover:scale-[1.02] active:scale-100"
+            title="Click to replay the intro"
+            aria-label="Replay intro cinematic"
+          >
+            <img
+              src="/shibui-logo.png"
+              alt="Shibui!"
+              className="mx-auto w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl h-auto"
+            />
+          </button>
           <span className="sr-only">The Lorekeeper</span>
         </h1>
 
